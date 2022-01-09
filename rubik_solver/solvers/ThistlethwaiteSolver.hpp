@@ -4,5 +4,7 @@
 
 class ThistlethwaiteSolver : public Solver {
  public:
-    bool ParseHeuristicDatabases() override;
+    bool ParseHeuristicsDB() override;
+    void WriteToFileHeuristicsDB() override;
+    void GenerateHeuristicsDB() override;
 };

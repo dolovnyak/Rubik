@@ -11,5 +11,7 @@ std::ostream &operator<<(std::ostream &os, SolverAlgorithm algorithm);
 
 class Solver {
  public:
-    virtual bool ParseHeuristicDatabases() = 0;
+    virtual bool ParseHeuristicsDB() = 0;
+    virtual void GenerateHeuristicsDB() = 0;
+    virtual void WriteToFileHeuristicsDB() = 0;
 };

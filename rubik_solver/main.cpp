@@ -19,8 +19,13 @@ SolverAlgorithm GetAlgorithmType(const std::string& value) {
     throw std::runtime_error("There is no algorithm with name " + value + ".");
 }
 
-using SolverAlgorithms = std::tuple<ThistlethwaiteSolver, KorfSolver>;
+}
 
+std::shared_ptr<Solver> MakeSolverInstanceByAlgorithm(SolverAlgorithm solver_algorithm) {
+    switch (solver_algorithm) {
+        case SolverAlgorithm::Thistlethwaite: return std::make_shared<ThistlethwaiteSolver>();
+        case SolverAlgorithm::Korf: return std::make_shared<KorfSolver>();
+    }
 }
 
 int main(int argc, char **argv) {
@@ -46,20 +51,11 @@ int main(int argc, char **argv) {
     }
 
     try {
-        SolverAlgorithms algorithms;
-        Solver* solver;
+        std::shared_ptr<Solver> solver = MakeSolverInstanceByAlgorithm(argparse.get<SolverAlgorithm>("-a"));
 
-        switch (argparse.get<SolverAlgorithm>("-a")) {
-            case SolverAlgorithm::Thistlethwaite:
-                solver = &std::get<ThistlethwaiteSolver>(algorithms); break;
-            case SolverAlgorithm::Korf:
-                solver = &std::get<KorfSolver>(algorithms); break;
-        }
-
-        if (!solver->ParseHeuristicDatabases()) {
-            // TODO init databases
-            // TODO pass databases to solver
-            // TODO write databases to files
+        if (!solver->ParseHeuristicsDB()) {
+            solver->GenerateHeuristicsDB();
+            solver->WriteToFileHeuristicsDB();
         }
 
         // TODO solve_moves_queue = solver->Solve();
