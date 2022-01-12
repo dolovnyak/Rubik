@@ -1,56 +1,23 @@
-#ifndef _BUSYBIN_KORF_PATTERN_DATABASE_
-#define _BUSYBIN_KORF_PATTERN_DATABASE_
+#pragma once
 
 #include <cstdint>
 #include <vector>
+#include "CornerDB.hpp"
+#include "EdgeGroup1DB.hpp"
+#include "EdgeGroup2DB.hpp"
+#include "EdgePermutationsDB.hpp"
+#include "korf_defenitions.hpp"
 
-namespace busybin
-{
-  /**
-   * This is an aggregate class that combines all the pattern databases needed
-   * for Korf's algorithm (plus more).  It's used as a heuristic in the IDA*
-   * searcher.  Getting an item from this database returns the max number of
-   * moves from the databases.
-   */
-  class KorfPatternDatabase : public PatternDatabase
-  {
-    bool inflated;
+/// This is an aggregate class that combines all the pattern databases needed for Korf's algorithm.
+class KorfHeuristicDB {
+public:
+    void InitAllDB();
 
-    CornerPatternDatabase*          pCornerDB;
-    EdgeG1PatternDatabase*          pEdgeG1DB;
-    EdgeG2PatternDatabase*          pEdgeG2DB;
-    EdgePermutationPatternDatabase* pEdgePermDB;
+    [[nodiscard]] uint8_t GetEstimatedMovesNumber(const Cube &cube) const;
 
-    vector<uint8_t> cornerDBInflated;
-    vector<uint8_t> edgeG1DBInflated;
-    vector<uint8_t> edgeG2DBInflated;
-    vector<uint8_t> edgePermDBInflated;
-
-  public:
-    KorfPatternDatabase(
-      CornerPatternDatabase* pCornerDB,
-      EdgeG1PatternDatabase* pEdgeG1DB,
-      EdgeG2PatternDatabase* pEdgeG2DB,
-      EdgePermutationPatternDatabase* pEdgePermDB);
-
-    uint8_t getNumMoves(const RubiksCube& cube) const;
-    uint8_t getNumMovesEx(const RubiksCube& cube,
-      const uint8_t boundHint, const uint8_t depthHint) const;
-    bool setNumMoves(const RubiksCube& cube, const uint8_t numMoves);
-    bool isFull() const;
-    void inflate();
-    void reset();
-
-    // All unimplemented.
-    uint32_t getDatabaseIndex(const RubiksCube& cube) const;
-    bool setNumMoves(const uint32_t ind, const uint8_t numMoves);
-    uint8_t getNumMoves(const uint32_t ind) const;
-    size_t getSize() const;
-    size_t getNumItems() const;
-    void toFile(const string& filePath) const;
-    bool fromFile(const string& filePath);
-    vector<uint8_t> inflate() const;
-  };
-}
-
-#endif
+private:
+    CornerDB _corner_db;
+    EdgeGroup1DB _edge_first_group_db;
+    EdgeGroup2DB _edge_second_group_db;
+    EdgePermutationsDB _edge_permutations_db;
+};

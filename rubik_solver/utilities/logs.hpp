@@ -136,7 +136,7 @@ class Log {
     };
 };
 
-#ifndef _DEBUG
+#ifdef _RELEASE
 #define LOG_INFO(...)
 #define LOG_INFO_BG(...)
 #define LOG_WARNING(...)        Log::Warning(__VA_ARGS__)

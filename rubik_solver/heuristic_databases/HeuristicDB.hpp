@@ -1,19 +1,27 @@
 #pragma once
 
-#include "DynamicBuffer.hpp"
+#include "DynamicBits4Buffer.hpp"
 #include "Cube.hpp"
+#include <fstream>
 
 class HeuristicDB {
  public:
     HeuristicDB() = delete;
     explicit HeuristicDB(size_t size);
 
-    void SetMoveNumbersByIndex(size_t index, uint8_t move_numbers);
-    [[nodiscard]] uint8_t GetMoveNumbersByIndex(uint32_t index) const;
-    [[nodiscard]] uint8_t GetMoveNumbersByCubeState(const Cube& cube) const;
+    void SetMovesNumberByState(const Cube& cube, uint8_t move_numbers);
+    [[nodiscard]] bool IsMovesNumbersBetter(const Cube& cube, uint8_t move_numbers) const;
+    void SetMovesNumberByIndex(size_t index, uint8_t move_numbers);
+    [[nodiscard]] uint8_t GetEstimatedMovesNumber(const Cube& cube) const;
+    [[nodiscard]] bool IsFull() const;
+    void WriteDbToFile(const std::string& file_path) const;
+    bool ParseDbFromFile(const std::string& file_path);
+    [[nodiscard]] size_t GetFilledNumber();
 
  private:
-    DynamicBuffer _buffer;
+    DynamicBits4Buffer _buffer;
+    size_t _filled_number = 0;
 
-    virtual int GenerateDbIndexByCubeState(const Cube& cube) const = 0;
+    [[nodiscard]] uint8_t GetMovesNumberByIndex(size_t index) const;
+    [[nodiscard]] virtual size_t GenerateDbIndexByCube(const Cube& cube) const = 0;
 };

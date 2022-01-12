@@ -4,7 +4,8 @@
 
 class ThistlethwaiteSolver : public Solver {
  public:
-    bool ParseHeuristicsDB() override;
-    void WriteToFileHeuristicsDB() override;
-    void GenerateHeuristicsDB() override;
+    ~ThistlethwaiteSolver() override = default;
+
+    void InitHeuristics() override;
+    std::vector<Cube::Rotation> Solve() override;
 };

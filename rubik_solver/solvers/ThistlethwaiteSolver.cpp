@@ -1,13 +1,9 @@
 #include "ThistlethwaiteSolver.hpp"
 
-bool ThistlethwaiteSolver::ParseHeuristicsDB() {
-    return false;
+void ThistlethwaiteSolver::InitHeuristics() {
+    throw std::logic_error("ThistlethwaiteSolver InitHeuristics not implemented");
 }
 
-void ThistlethwaiteSolver::GenerateHeuristicsDB() {
-
-}
-
-void ThistlethwaiteSolver::WriteToFileHeuristicsDB() {
-
+std::vector<Cube::Rotation> ThistlethwaiteSolver::Solve() {
+    throw std::logic_error("ThistlethwaiteSolver Solve not implemented");
 }

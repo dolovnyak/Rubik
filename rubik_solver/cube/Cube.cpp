@@ -355,37 +355,22 @@
 //        }
 //    }
 //}
-//
-///**
-// * Get the cubie index of an edge cubie.
-// */
-//uint8_t Cube::getEdgeIndex(Edge index) const
-//{
-//    return _edges[(unsigned)index].index;
-//}
-//
-///**
-// * Get the orientation of an edge cubie.
-// */
-//uint8_t Cube::getEdgeOrientation(Edge index) const
-//{
-//    return _edges[(unsigned)index].orientation;
-//}
-//
-///**
-// * Get the cubie index of a corner cubie.
-// */
-//uint8_t Cube::getCornerIndex(Corner index) const
-//{
-//    return _corners[(unsigned)index].index;
-//}
-//
-///**
-// * Get the orientation of a corner cubie.
-// */
-//uint8_t Cube::getCornerOrientation(Corner index) const {
-//    return _corners[(unsigned)index].orientation;
-//}
+
+uint8_t Cube::GetEdgeIndex(Edge edge) const {
+    return _edges[static_cast<int>(edge)].index;
+}
+
+uint8_t Cube::GetEdgeOrientation(Edge edge) const {
+    return _edges[static_cast<int>(edge)].orientation;
+}
+
+uint8_t Cube::GetCornerIndex(Corner corner) const {
+    return _corners[static_cast<int>(corner)].index;
+}
+
+uint8_t Cube::GetCornerOrientation(Corner corner) const {
+    return _corners[static_cast<int>(corner)].orientation;
+}
 
 bool Cube::IsSolved() const {
     return _corners == kSolvedCorners && _edges == kSolvedEdges;
@@ -577,7 +562,7 @@ Cube& Cube::RotationR() {
     return *this;
 }
 
-Cube& Cube::OppositeRotation() {
+Cube& Cube::OppositeRotationR() {
     Cubie tmp                       = _corners[(unsigned)Corner::DRB];
     _corners[(unsigned)Corner::DRB] = _corners[(unsigned)Corner::DRF];
     _corners[(unsigned)Corner::DRF] = _corners[(unsigned)Corner::URF];
@@ -710,4 +695,39 @@ Cube& Cube::RotationD2() {
     std::swap(_edges[(unsigned)Edge::DR], _edges[(unsigned)Edge::DL]);
 
     return *this;
+}
+
+Cube &Cube::Rotate(Cube::Rotation rotation) {
+    switch (rotation) {
+        case Cube::Rotation::L: return RotationL();
+        case Cube::Rotation::OppositeL: return OppositeRotationL();
+        case Cube::Rotation::L2: return RotationL2();
+
+        case Cube::Rotation::R: return RotationR();
+        case Cube::Rotation::OppositeR: return OppositeRotationR();
+        case Cube::Rotation::R2: return RotationR2();
+
+        case Cube::Rotation::U: return RotationU();
+        case Cube::Rotation::OppositeU: return OppositeRotationU();
+        case Cube::Rotation::U2: return RotationU2();
+
+        case Cube::Rotation::D: return RotationD();
+        case Cube::Rotation::OppositeD: return OppositeRotationD();
+        case Cube::Rotation::D2: return RotationD2();
+
+        case Cube::Rotation::F: return RotationF();
+        case Cube::Rotation::OppositeF: return OppositeRotationF();
+        case Cube::Rotation::F2: return RotationF2();
+
+        case Cube::Rotation::B: return RotationB();
+        case Cube::Rotation::OppositeB: return OppositeRotationB();
+        case Cube::Rotation::B2: return RotationB2();
+
+        case Cube::Rotation::End: throw std::logic_error("End rotation was passed into Rotate function");
+    }
+}
+
+Cube Cube::Rotate(const Cube &cube, Cube::Rotation rotation) {
+    Cube copy(cube);
+    return copy.Rotate(rotation);
 }

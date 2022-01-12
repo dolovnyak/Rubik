@@ -1,6 +1,8 @@
 #pragma once
 
 #include <ostream>
+#include "logs.hpp"
+#include "Cube.hpp"
 
 enum class SolverAlgorithm {
     Thistlethwaite = 0,
@@ -11,7 +13,8 @@ std::ostream &operator<<(std::ostream &os, SolverAlgorithm algorithm);
 
 class Solver {
  public:
-    virtual bool ParseHeuristicsDB() = 0;
-    virtual void GenerateHeuristicsDB() = 0;
-    virtual void WriteToFileHeuristicsDB() = 0;
+    virtual ~Solver() = default;
+
+    virtual void InitHeuristics() = 0;
+    virtual std::vector<Cube::Rotation> Solve() = 0;
 };

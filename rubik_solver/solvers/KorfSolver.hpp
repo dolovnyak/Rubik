@@ -2,15 +2,15 @@
 
 #include "Solver.hpp"
 #include "KorfHeuristicDB.hpp"
+#include "generate_db_through_bfs.hpp"
 
 class KorfSolver : public Solver {
  public:
     KorfSolver();
 
-    bool ParseHeuristicsDB() override;
-    void GenerateHeuristicsDB() override;
-    void WriteToFileHeuristicsDB() override;
+    void InitHeuristics() override;
+    std::vector<Cube::Rotation> Solve() override;
 
  private:
-    KorfHeuristicDB corner_db;
+    KorfHeuristicDB _korf_heuristics;
 };
