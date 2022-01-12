@@ -11,19 +11,19 @@ add_executable(${PROJECT_NAME}
         solvers/KorfSolver.cpp
         solvers/ThistlethwaiteSolver.cpp
         heuristic_databases/HeuristicDB.cpp
-        heuristic_databases/Korf/KorfHeuristicDB.cpp
-        heuristic_databases/Korf/EdgeGroup1DB.cpp
-        heuristic_databases/Korf/EdgeGroup2DB.cpp
-        heuristic_databases/Korf/EdgePermutationsDB.cpp
+        heuristic_databases/korf/KorfHeuristicDB.cpp
+        heuristic_databases/korf/EdgeGroup1DB.cpp
+        heuristic_databases/korf/EdgeGroup2DB.cpp
+        heuristic_databases/korf/EdgePermutationsDB.cpp
         heuristic_databases/generate_db_through_bfs.cpp
-        heuristic_databases/Korf/CornerDB.cpp heuristic_databases/Korf/korf_defenitions.hpp cube/cube_defenitions.hpp)
+        heuristic_databases/korf/CornerDB.cpp heuristic_databases/korf/korf_defenitions.hpp cube/cube_defenitions.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         utilities
         solvers
         cube
         heuristic_databases
-        heuristic_databases/Korf
+        heuristic_databases/korf
         )
 
 # replaced executable file to root dir
