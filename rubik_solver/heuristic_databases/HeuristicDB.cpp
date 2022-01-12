@@ -22,7 +22,7 @@ void HeuristicDB::SetMovesNumberByState(const Cube &cube, uint8_t move_numbers) 
     ++_filled_number;
 }
 
-bool HeuristicDB::IsMovesNumbersBetter(const Cube& cube, uint8_t move_numbers) const {
+bool HeuristicDB::IsStateVisited(const Cube& cube, uint8_t move_numbers) const {
     return move_numbers < GetMovesNumberByIndex(GenerateDbIndexByCube(cube));
 }
 
@@ -30,7 +30,7 @@ bool HeuristicDB::IsFull() const {
     return _filled_number == _buffer.GetSize();
 }
 
-void HeuristicDB::WriteDbToFile(const std::string& file_path) const {
+void HeuristicDB::WriteDbToFile(std::string_view file_path) const {
     std::ofstream stream(file_path, std::ios::out | std::ios::binary | std::ios::trunc);
 
     if (!stream.is_open())
@@ -42,10 +42,13 @@ void HeuristicDB::WriteDbToFile(const std::string& file_path) const {
     stream.close();
 }
 
-bool HeuristicDB::ParseDbFromFile(const std::string& file_path) {
+bool HeuristicDB::ParseDbFromFile(std::string_view file_path) {
     std::ifstream reader(file_path, std::ios::in | std::ios::ate);
 
-    if (!reader.is_open()) { return false; }
+    if (!reader.is_open()) {
+        LOG_INFO("file with name \"", file_path, "\" didn't open");
+        return false;
+    }
 
     std::streamsize file_size = reader.tellg();
     if (file_size != static_cast<std::streamsize>(_buffer.GetStorageSize())) {

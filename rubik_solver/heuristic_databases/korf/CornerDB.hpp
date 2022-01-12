@@ -3,7 +3,7 @@
 #include <cstdint>
 #include "HeuristicDB.hpp"
 #include "PermutationRankMaker.h"
-#include "korf_defenitions.hpp"
+#include "cube_defenitions.hpp"
 
 /// This DB contains all corners permutations with orientations
 class CornerDB : public HeuristicDB {

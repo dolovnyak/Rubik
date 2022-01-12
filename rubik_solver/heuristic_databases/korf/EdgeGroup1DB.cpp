@@ -8,12 +8,21 @@ EdgeGroup1DB::EdgeGroup1DB() : HeuristicDB(510935040)
 {}
 
 size_t EdgeGroup1DB::GenerateDbIndexByCube(const Cube& cube) const {
-    std::array<uint8_t, kEdgesFirstGroupNumber> edges_permutation{};
-    std::array<uint8_t, kEdgesFirstGroupNumber> edges_orientation{};
+    std::array<uint8_t, kEdgesGroup1Number> edges_permutation{};
+    std::array<uint8_t, kEdgesGroup1Number> edges_orientation{};
 
-    for (size_t i = 0; i < _edges.size(); ++i) {
-        edges_permutation[i] = cube.GetEdgeIndex(_edges[i]);
-        edges_orientation[i] = cube.GetEdgeOrientation(_edges[i]);
+    /// For each edge we check it's current edge_index.
+    /// And we store only edge_indexes from 0 to 6.
+    int received_edges = 0;
+    for (uint8_t current_edge_i = 0; current_edge_i < kEdgesNumber && received_edges != 7; ++current_edge_i) {
+        Cube::Edge current_edge = kAllEdges[current_edge_i];
+        uint8_t current_edge_stored_index = cube.GetEdgeIndex(current_edge);
+
+        if (current_edge_stored_index < 7) {
+            edges_permutation[current_edge_stored_index] = current_edge_i;
+            edges_orientation[current_edge_stored_index] = cube.GetEdgeOrientation(current_edge);
+            ++received_edges;
+        }
     }
 
     size_t rank = _permutation_rank_maker.rank(edges_permutation);

@@ -1,6 +1,28 @@
 #pragma once
 
 #include "Cube.hpp"
+#include <vector>
+
+constexpr int kEdgesNumber = 12;
+constexpr int kCornersNumber = 8;
+constexpr int kRotationsNumber = 18;
+
+static constexpr std::array<Cube::Rotation, kRotationsNumber> kAllRotations = [] {
+    std::array<Cube::Rotation, kRotationsNumber> rotations{};
+    for (int i = 0; i < kRotationsNumber; ++i) {
+        rotations[i] = static_cast<Cube::Rotation>(i);
+    }
+    return rotations;
+}();
+
+static constexpr std::array<Cube::Edge, kEdgesNumber> kAllEdges = [] {
+    std::array<Cube::Edge, kEdgesNumber> edges{};
+    for (int i = 0; i < kEdgesNumber; ++i) {
+        edges[i] = static_cast<Cube::Edge>(i);
+    }
+    return edges;
+}();
+
 
 static const std::unordered_map<std::string, Cube::Rotation> kStringToRotationMap = {
         {"L", Cube::Rotation::L},
@@ -53,14 +75,6 @@ static const std::unordered_map<Cube::Rotation, std::string> kRotationsToStringM
         {Cube::Rotation::OppositeB, "B'"},
         {Cube::Rotation::B2, "B2"},
 };
-
-static constexpr std::array<Cube::Rotation, 18> kAllRotations = [] {
-    std::array<Cube::Rotation, 18> rotations{};
-    for (int i = 0; i < static_cast<int>(Cube::Rotation::End); ++i) {
-        rotations[i] = static_cast<Cube::Rotation>(i);
-    }
-    return rotations;
-}();
 
 inline std::ostream &operator<<(std::ostream &os, const std::vector<Cube::Rotation>& rotations) {
     for (auto rotation : rotations) {

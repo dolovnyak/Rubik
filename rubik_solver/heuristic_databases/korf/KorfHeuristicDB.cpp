@@ -1,5 +1,6 @@
 #include "KorfHeuristicDB.hpp"
 #include "generate_db_through_bfs.hpp"
+#include "cube_defenitions.hpp"
 
 void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse corner db");

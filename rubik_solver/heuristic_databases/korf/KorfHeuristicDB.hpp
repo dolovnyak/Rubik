@@ -6,7 +6,11 @@
 #include "EdgeGroup1DB.hpp"
 #include "EdgeGroup2DB.hpp"
 #include "EdgePermutationsDB.hpp"
-#include "korf_defenitions.hpp"
+
+constexpr std::string_view kCornerDbPath = "heuristic_databases/raw_databases/corners.db";
+constexpr std::string_view kEdgeGroup1DbPath = "heuristic_databases/raw_databases/edge_first_group.db";
+constexpr std::string_view kEdgeGroup2DbPath = "heuristic_databases/raw_databases/edge_second_group.db";
+constexpr std::string_view kEdgePermutationsDbPath = "heuristic_databases/raw_databases/edge_permutations.db";
 
 /// This is an aggregate class that combines all the pattern databases needed for Korf's algorithm.
 class KorfHeuristicDB {

@@ -26,7 +26,6 @@ public:
         D, OppositeD, D2,
         F, OppositeF, F2,
         B, OppositeB, B2,
-        End
     };
 
     [[nodiscard]] bool IsSolved() const;

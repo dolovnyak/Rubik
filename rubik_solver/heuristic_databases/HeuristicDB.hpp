@@ -10,12 +10,12 @@ class HeuristicDB {
     explicit HeuristicDB(size_t size);
 
     void SetMovesNumberByState(const Cube& cube, uint8_t move_numbers);
-    [[nodiscard]] bool IsMovesNumbersBetter(const Cube& cube, uint8_t move_numbers) const;
+    [[nodiscard]] bool IsStateVisited(const Cube& cube, uint8_t move_numbers) const;
     void SetMovesNumberByIndex(size_t index, uint8_t move_numbers);
     [[nodiscard]] uint8_t GetEstimatedMovesNumber(const Cube& cube) const;
     [[nodiscard]] bool IsFull() const;
-    void WriteDbToFile(const std::string& file_path) const;
-    bool ParseDbFromFile(const std::string& file_path);
+    void WriteDbToFile(std::string_view file_path) const;
+    bool ParseDbFromFile(std::string_view file_path);
     [[nodiscard]] size_t GetFilledNumber();
 
  private:

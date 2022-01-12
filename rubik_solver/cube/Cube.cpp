@@ -722,8 +722,6 @@ Cube &Cube::Rotate(Cube::Rotation rotation) {
         case Cube::Rotation::B: return RotationB();
         case Cube::Rotation::OppositeB: return OppositeRotationB();
         case Cube::Rotation::B2: return RotationB2();
-
-        case Cube::Rotation::End: throw std::logic_error("End rotation was passed into Rotate function");
     }
 }
 

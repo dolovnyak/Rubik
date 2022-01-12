@@ -3,7 +3,7 @@
 #include <cstdint>
 #include "HeuristicDB.hpp"
 #include "PermutationRankMaker.h"
-#include "korf_defenitions.hpp"
+#include "cube_defenitions.hpp"
 
 /// This db contains only permutations of the 12 edges.
 class EdgePermutationsDB : public HeuristicDB {

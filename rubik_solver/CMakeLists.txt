@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME}
         heuristic_databases/korf/EdgeGroup2DB.cpp
         heuristic_databases/korf/EdgePermutationsDB.cpp
         heuristic_databases/generate_db_through_bfs.cpp
-        heuristic_databases/korf/CornerDB.cpp heuristic_databases/korf/korf_defenitions.hpp cube/cube_defenitions.hpp)
+        heuristic_databases/korf/CornerDB.cpp cube/cube_defenitions.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         utilities
@@ -31,3 +31,5 @@ set_target_properties(${PROJECT_NAME}
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}"
         )
+
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
