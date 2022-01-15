@@ -4,6 +4,7 @@
 #include "PermutationRankMaker.h"
 #include "cube_defenitions.hpp"
 
+/// Second step in thistlethwaite algorithm.
 class CornerOrientationsPlus4EdgePermutationsDB : HeuristicDB {
     CornerOrientationsPlus4EdgePermutationsDB();
 

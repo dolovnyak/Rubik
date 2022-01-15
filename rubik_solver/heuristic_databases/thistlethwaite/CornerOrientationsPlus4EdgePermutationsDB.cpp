@@ -11,7 +11,7 @@ CornerOrientationsPlus4EdgePermutationsDB::CornerOrientationsPlus4EdgePermutatio
 size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
     std::array<uint8_t, 4> edge_combination{};
 
-    unsigned combination_index = 0;
+    uint8_t combination_index = 0;
     for (uint8_t current_edge_i = 0; current_edge_i < kEdgesNumber && combination_index < 4; ++current_edge_i) {
         Cube::Edge stored_edge = static_cast<Cube::Edge>(cube.GetEdgeIndex(kAllEdges[current_edge_i]));
 
