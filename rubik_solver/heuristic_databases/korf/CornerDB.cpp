@@ -1,12 +1,11 @@
 #include "CornerDB.hpp"
 
- /// There are 8!*3^7 possible corner permutations with orientation.
- /// Each permutation is reachable in 11 moves or fewer, so each move can be stored in 4 bits.
- /// That gives 8!*3^7 / 2 / 1024 / 1024 (~42MB).
-CornerDB::CornerDB() : HeuristicDB(88179840)
-{}
+/// There are 8!*3^7 possible corner permutations with orientation.
+/// Each permutation is reachable in 11 moves or fewer, so each move can be stored in 4 bits.
+/// That gives 8!*3^7 / 2 / 1024 / 1024 (~42MB).
+CornerDB::CornerDB() : HeuristicDB(88179840) {}
 
-size_t CornerDB::GenerateDbIndexByCube(const Cube &cube) const {
+size_t CornerDB::GenerateDbIndexByCube(const Cube& cube) const {
 
     std::array<uint8_t, kCornersNumber> corners_start_permutation = {
             cube.GetCornerIndex(Cube::Corner::ULB),
@@ -25,7 +24,7 @@ size_t CornerDB::GenerateDbIndexByCube(const Cube &cube) const {
     //
     // "We scan the permutation from left to right, constructing a bit string
     // of length n, indicating which elements of the permutation we've seen
-    // so far. Initially the string is all zeros.  As each element of the
+    // so far. Initially the string is all zeros. As each element of the
     // permutation is encountered, we use it as an index into the bit string
     // and set the corresponding bit to one. When we encounter element k in
     // the permutation, to determine the number of elements less than k to
@@ -50,8 +49,7 @@ size_t CornerDB::GenerateDbIndexByCube(const Cube &cube) const {
             cube.GetCornerOrientation(Cube::Corner::DRB)
     };
 
-    // Treat the orientations as a base-3 number, and convert it
-    // to base-10.
+    // Treat the orientations as a base-3 number, and convert it to base-10.
     size_t corners_orientation_to_number =
             corners_start_orientation[0] * 729 +
             corners_start_orientation[1] * 243 +
@@ -61,6 +59,6 @@ size_t CornerDB::GenerateDbIndexByCube(const Cube &cube) const {
             corners_start_orientation[5] * 3 +
             corners_start_orientation[6];
 
-    // Combine the permutation and orientation into a single index. p * 3^7 + o;
+    /// Combine the permutation and orientation into a single index. p * 3^7 + o;
     return rank * 2187 + corners_orientation_to_number;
 }

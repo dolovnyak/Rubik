@@ -15,8 +15,9 @@ add_executable(${PROJECT_NAME}
         heuristic_databases/korf/EdgeGroup1DB.cpp
         heuristic_databases/korf/EdgeGroup2DB.cpp
         heuristic_databases/korf/EdgePermutationsDB.cpp
-        heuristic_databases/generate_db_through_bfs.cpp
-        heuristic_databases/korf/CornerDB.cpp cube/cube_defenitions.hpp)
+        heuristic_databases/thistlethwaite/EdgeOrientationsDB.cpp
+        heuristic_databases/thistlethwaite/CornerOrientationsPlus4EdgePermutationsDB.cpp
+        heuristic_databases/generate_db_through_bfs.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         utilities
@@ -24,6 +25,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         cube
         heuristic_databases
         heuristic_databases/korf
+        heuristic_databases/thistlethwaite
         )
 
 # replaced executable file to root dir

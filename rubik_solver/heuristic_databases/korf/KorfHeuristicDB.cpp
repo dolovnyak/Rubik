@@ -44,7 +44,7 @@ void KorfHeuristicDB::InitAllDB() {
  * Get the estimated number of moves it would take to get from a cube cube
  * to a scrambled cube.  The estimate is the max of all the databases.
  */
-uint8_t KorfHeuristicDB::GetEstimatedMovesNumber(const Cube &cube) const {
+uint8_t KorfHeuristicDB::GetEstimatedMovesNumber(const Cube& cube) const {
     uint8_t corner_moves;
     uint8_t edge_first_group_moves;
     uint8_t edge_second_group_moves;
@@ -63,5 +63,5 @@ uint8_t KorfHeuristicDB::GetEstimatedMovesNumber(const Cube &cube) const {
 #endif
 
     return std::max({corner_moves, edge_first_group_moves,
-                        edge_second_group_moves, edge_permutations_moves});
+                     edge_second_group_moves, edge_permutations_moves});
 }

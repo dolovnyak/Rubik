@@ -7,11 +7,11 @@
 
 /// This db contains only permutations of the 12 edges.
 class EdgePermutationsDB : public HeuristicDB {
-public:
+ public:
     EdgePermutationsDB();
 
-    [[nodiscard]] size_t GenerateDbIndexByCube(const Cube &cube) const override;
+    [[nodiscard]] size_t GenerateDbIndexByCube(const Cube& cube) const override;
 
-private:
+ private:
     PermutationRankMaker<kEdgesNumber> _permutation_rank_maker;
 };

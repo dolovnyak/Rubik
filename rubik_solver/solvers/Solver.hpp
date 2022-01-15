@@ -9,12 +9,13 @@ enum class SolverAlgorithm {
     Korf
 };
 
-std::ostream &operator<<(std::ostream &os, SolverAlgorithm algorithm);
+std::ostream& operator<<(std::ostream& os, SolverAlgorithm algorithm);
 
 class Solver {
  public:
     virtual ~Solver() = default;
 
     virtual void InitHeuristics() = 0;
+
     virtual std::vector<Cube::Rotation> Solve() = 0;
 };
