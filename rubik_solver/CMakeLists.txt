@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME}
         heuristic_databases/korf/EdgeGroup1DB.cpp
         heuristic_databases/korf/EdgeGroup2DB.cpp
         heuristic_databases/korf/EdgePermutationsDB.cpp
+        heuristic_databases/korf/CornerDB.cpp
         heuristic_databases/thistlethwaite/EdgeOrientationsDB.cpp
         heuristic_databases/thistlethwaite/CornerOrientationsPlus4EdgePermutationsDB.cpp
         heuristic_databases/generate_db_through_bfs.cpp)

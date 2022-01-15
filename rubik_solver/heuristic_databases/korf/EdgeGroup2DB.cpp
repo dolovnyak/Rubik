@@ -18,8 +18,8 @@ size_t EdgeGroup2DB::GenerateDbIndexByCube(const Cube& cube) const {
         uint8_t current_edge_stored_index = cube.GetEdgeIndex(current_edge);
 
         if (current_edge_stored_index > 4) {
-            edges_permutation[current_edge_stored_index] = current_edge_i;
-            edges_orientation[current_edge_stored_index] = cube.GetEdgeOrientation(current_edge);
+            edges_permutation[current_edge_stored_index - 5] = current_edge_i;
+            edges_orientation[current_edge_stored_index - 5] = cube.GetEdgeOrientation(current_edge);
             ++received_edges;
         }
     }
