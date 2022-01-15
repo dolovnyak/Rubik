@@ -53,7 +53,9 @@ bool HeuristicDB::ParseDbFromFile(std::string_view file_path) {
     std::streamsize file_size = reader.tellg();
     if (file_size != static_cast<std::streamsize>(_buffer.GetStorageSize())) {
         reader.close();
-        throw std::runtime_error("Database file size doesn't match with database storage size");
+        throw std::runtime_error("Database file size doesn't match with database storage size.\n"
+                                 "FILE_SIZE is \"" + std::to_string(file_size) + "\" STORAGE_SIZE is \"" +
+                                 std::to_string(_buffer.GetStorageSize()) + "\"");
     }
 
     reader.seekg(0, std::ios::beg);
