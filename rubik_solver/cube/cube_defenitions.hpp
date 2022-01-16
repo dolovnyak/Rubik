@@ -23,6 +23,14 @@ static constexpr std::array<Cube::Edge, kEdgesNumber> kAllEdges = [] {
     return edges;
 }();
 
+static constexpr std::array<Cube::Corner, kCornersNumber> kAllCorners = [] {
+    std::array<Cube::Corner, kCornersNumber> corners{};
+    for (int i = 0; i < kCornersNumber; ++i) {
+        corners[i] = static_cast<Cube::Corner>(i);
+    }
+    return corners;
+}();
+
 
 static const std::unordered_map<std::string, Cube::Rotation> kStringToRotationMap = {
         {"L", Cube::Rotation::L},
