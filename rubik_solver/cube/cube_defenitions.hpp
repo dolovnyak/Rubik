@@ -84,6 +84,36 @@ static const std::unordered_map<Cube::Rotation, std::string> kRotationsToStringM
         {Cube::Rotation::B2, "B2"},
 };
 
+static constexpr std::array<Cube::Rotation, 14> kThistlethwaiteStep2Rotations = {
+        Cube::Rotation::R,
+        Cube::Rotation::OppositeR,
+        Cube::Rotation::R2,
+        Cube::Rotation::L,
+        Cube::Rotation::OppositeL,
+        Cube::Rotation::L2,
+        Cube::Rotation::U,
+        Cube::Rotation::OppositeU,
+        Cube::Rotation::U2,
+        Cube::Rotation::D,
+        Cube::Rotation::OppositeD,
+        Cube::Rotation::D2,
+        Cube::Rotation::F2,
+        Cube::Rotation::B2,
+};
+
+static constexpr std::array<Cube::Rotation, 10> kThistlethwaiteStep3Rotations = {
+        Cube::Rotation::R2,
+        Cube::Rotation::L2,
+        Cube::Rotation::U,
+        Cube::Rotation::OppositeU,
+        Cube::Rotation::U2,
+        Cube::Rotation::D,
+        Cube::Rotation::OppositeD,
+        Cube::Rotation::D2,
+        Cube::Rotation::F2,
+        Cube::Rotation::B2,
+};
+
 inline std::ostream &operator<<(std::ostream &os, const std::vector<Cube::Rotation>& rotations) {
     for (auto rotation : rotations) {
         auto string_rotation = kRotationsToStringMap.find(rotation)->second;

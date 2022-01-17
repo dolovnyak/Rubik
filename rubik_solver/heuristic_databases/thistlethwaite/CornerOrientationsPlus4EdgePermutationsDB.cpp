@@ -5,7 +5,6 @@
 /// There are 8 corners, and the orientations of 7 dictate the orientation of the 8th
 /// Corners have three possible orientations, so there are 3^7 corner orientation permutations.
 /// Total: 12C4 * 3^7 / 1024^2 / 2 = 1082565 / 1024 / 2 = ~528.60 KB on disk.
-
 CornerOrientationsPlus4EdgePermutationsDB::CornerOrientationsPlus4EdgePermutationsDB() : HeuristicDB(1082565) {}
 
 size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
@@ -21,7 +20,6 @@ size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cu
             ++combination_index;
         }
     }
-
     size_t rank = _combination_rank_maker.rank(edge_combination);
 
     std::array<uint8_t, 7> corner_orientations = {

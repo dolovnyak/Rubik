@@ -6,7 +6,7 @@ void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse corner db");
     if (!_corner_db.ParseDbFromFile(kCornerDbPath)) {
         LOG_INFO("Parse failed, start corner db generation");
-        generate_db_through_bfs(&_corner_db);
+        generate_db_through_bfs(&_corner_db, kAllRotations);
         LOG_INFO("Start writing corner db");
         _corner_db.WriteDbToFile(kCornerDbPath);
     }
@@ -15,7 +15,7 @@ void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse edge permutations db");
     if (!_edge_permutations_db.ParseDbFromFile(kEdgePermutationsDbPath)) {
         LOG_INFO("Parse failed, start edge permutations db generation");
-        generate_db_through_bfs(&_edge_permutations_db);
+        generate_db_through_bfs(&_edge_permutations_db, kAllRotations);
         LOG_INFO("Start writing edge permutations db");
         _edge_permutations_db.WriteDbToFile(kEdgePermutationsDbPath);
     }
@@ -24,7 +24,7 @@ void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse edge group1 db");
     if (!_edge_first_group_db.ParseDbFromFile(kEdgeGroup1DbPath)) {
         LOG_INFO("Parse failed, start edge group1 db generation");
-        generate_db_through_bfs(&_edge_first_group_db);
+        generate_db_through_bfs(&_edge_first_group_db, kAllRotations);
         LOG_INFO("Start writing edge group1 db");
         _edge_first_group_db.WriteDbToFile(kEdgeGroup1DbPath);
     }
@@ -33,7 +33,7 @@ void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse edge group2 db");
     if (!_edge_second_group_db.ParseDbFromFile(kEdgeGroup2DbPath)) {
         LOG_INFO("Parse failed, start edge group2 db generation");
-        generate_db_through_bfs(&_edge_second_group_db);
+        generate_db_through_bfs(&_edge_second_group_db, kAllRotations);
         LOG_INFO("Start writing edge group2 db");
         _edge_second_group_db.WriteDbToFile(kEdgeGroup2DbPath);
     }

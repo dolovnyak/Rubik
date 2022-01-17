@@ -19,7 +19,11 @@ add_executable(${PROJECT_NAME}
         heuristic_databases/thistlethwaite/EdgeOrientationsDB.cpp
         heuristic_databases/thistlethwaite/CornerOrientationsPlus4EdgePermutationsDB.cpp
         heuristic_databases/thistlethwaite/TetradPairedPlus4EdgePermutationsDB.cpp
-        heuristic_databases/generate_db_through_bfs.cpp utilities/UnorderedPairSetRankMaker.hpp utilities/CombinationRankMaker.hpp heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.cpp heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.hpp)
+        heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.cpp
+        heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.hpp
+        utilities/UnorderedPairSetRankMaker.hpp
+        utilities/CombinationRankMaker.hpp
+        )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         utilities

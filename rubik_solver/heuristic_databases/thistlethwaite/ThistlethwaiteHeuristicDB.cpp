@@ -5,7 +5,7 @@ void ThistlethwaiteHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse edge_orientations (step1) db");
     if (!_step1_db.ParseDbFromFile(kStep1DbPath)) {
         LOG_INFO("Parse failed, start edge_orientations db generation");
-        generate_db_through_bfs(&_step1_db);
+        generate_db_through_bfs(&_step1_db, kAllRotations);
         LOG_INFO("Start writing edge_orientations db");
         _step1_db.WriteDbToFile(kStep1DbPath);
     }
@@ -14,7 +14,7 @@ void ThistlethwaiteHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse corner_orientations_plus_4_edge_permutations (step2) db");
     if (!_step2_db.ParseDbFromFile(kStep2DbPath)) {
         LOG_INFO("Parse failed, start corner_orientations_plus_4_edge_permutations db generation");
-        generate_db_through_bfs(&_step2_db);
+        generate_db_through_bfs(&_step2_db, kThistlethwaiteStep2Rotations);
         LOG_INFO("Start writing corner_orientations_plus_4_edge_permutations db");
         _step2_db.WriteDbToFile(kStep2DbPath);
     }
@@ -23,7 +23,7 @@ void ThistlethwaiteHeuristicDB::InitAllDB() {
     LOG_INFO("Try parse tetrad_paired_plus_4_edge_permutations (step3) db");
     if (!_step3_db.ParseDbFromFile(kStep3DbPath)) {
         LOG_INFO("Parse failed, start tetrad_paired_plus_4_edge_permutations db generation");
-        generate_db_through_bfs(&_step3_db);
+        generate_db_through_bfs(&_step3_db, kThistlethwaiteStep3Rotations);
         LOG_INFO("Start writing tetrad_paired_plus_4_edge_permutations db");
         _step3_db.WriteDbToFile(kStep3DbPath);
     }
