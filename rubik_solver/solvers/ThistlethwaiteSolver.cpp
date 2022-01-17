@@ -1,7 +1,9 @@
 #include "ThistlethwaiteSolver.hpp"
 
 void ThistlethwaiteSolver::InitHeuristics() {
-    throw std::logic_error("ThistlethwaiteSolver InitHeuristics not implemented");
+    LOG_INFO("Init Thistlethwaite heuristic databases");
+    _thistlethwaite_heuristics.InitAllDB();
+    LOG_INFO("Init Thistlethwaite heuristic databases SUCCESS");
 }
 
 std::vector<Cube::Rotation> ThistlethwaiteSolver::Solve() {

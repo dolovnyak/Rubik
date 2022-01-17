@@ -5,7 +5,7 @@
 #include <array>
 #include <bitset>
 #include <iostream>
-#include "permutations_math.hpp"
+#include "combinatorics_math.hpp"
 
 #define MAX_PERMUTATION_N 12
 /// This class generate index for permutation of size N picked K ways.

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Solver.hpp"
+#include "ThistlethwaiteHeuristicDB.hpp"
 
 class ThistlethwaiteSolver : public Solver {
  public:
@@ -8,4 +9,7 @@ class ThistlethwaiteSolver : public Solver {
 
     void InitHeuristics() override;
     std::vector<Cube::Rotation> Solve() override;
+
+private:
+    ThistlethwaiteHeuristicDB _thistlethwaite_heuristics;
 };

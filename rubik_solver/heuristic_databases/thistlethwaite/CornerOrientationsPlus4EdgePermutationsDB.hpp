@@ -1,15 +1,16 @@
 #pragma once
 
 #include "HeuristicDB.hpp"
-#include "PermutationRankMaker.h"
 #include "cube_defenitions.hpp"
+#include "CombinationRankMaker.hpp"
 
 /// Second step in thistlethwaite algorithm.
-class CornerOrientationsPlus4EdgePermutationsDB : HeuristicDB {
+class CornerOrientationsPlus4EdgePermutationsDB : public HeuristicDB {
+public:
     CornerOrientationsPlus4EdgePermutationsDB();
 
     [[nodiscard]] size_t GenerateDbIndexByCube(const Cube& cube) const override;
 
  private:
-    PermutationRankMaker<kEdgesNumber, 4> _permutation_rank_maker;
+    CombinationRankMaker<kEdgesNumber, 4> _combination_rank_maker;
 };
