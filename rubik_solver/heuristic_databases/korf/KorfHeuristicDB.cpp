@@ -22,28 +22,26 @@ void KorfHeuristicDB::InitAllDB() {
     LOG_INFO("Init edge permutations db SUCCESS");
 
     LOG_INFO("Try parse edge group1 db");
-    if (!_edge_first_group_db.ParseDbFromFile(kEdgeGroup1DbPath)) {
+    if (!_edge_group1_db.ParseDbFromFile(kEdgeGroup1DbPath)) {
         LOG_INFO("Parse failed, start edge group1 db generation");
-        generate_db_through_bfs(&_edge_first_group_db, kAllRotations);
+        generate_db_through_bfs(&_edge_group1_db, kAllRotations);
         LOG_INFO("Start writing edge group1 db");
-        _edge_first_group_db.WriteDbToFile(kEdgeGroup1DbPath);
+        _edge_group1_db.WriteDbToFile(kEdgeGroup1DbPath);
     }
     LOG_INFO("Init edge group1 db SUCCESS");
 
     LOG_INFO("Try parse edge group2 db");
-    if (!_edge_second_group_db.ParseDbFromFile(kEdgeGroup2DbPath)) {
+    if (!_edge_group2_db.ParseDbFromFile(kEdgeGroup2DbPath)) {
         LOG_INFO("Parse failed, start edge group2 db generation");
-        generate_db_through_bfs(&_edge_second_group_db, kAllRotations);
+        generate_db_through_bfs(&_edge_group2_db, kAllRotations);
         LOG_INFO("Start writing edge group2 db");
-        _edge_second_group_db.WriteDbToFile(kEdgeGroup2DbPath);
+        _edge_group2_db.WriteDbToFile(kEdgeGroup2DbPath);
     }
     LOG_INFO("Init edge group2 db SUCCESS");
 }
 
-/**
- * Get the estimated number of moves it would take to get from a cube cube
- * to a scrambled cube.  The estimate is the max of all the databases.
- */
+/// Get the estimated number of moves it would take to get from a cube cube to a scrambled cube.
+/// The estimate is the max of all the databases.
 uint8_t KorfHeuristicDB::GetEstimatedMovesNumber(const Cube& cube) const {
     uint8_t corner_moves;
     uint8_t edge_first_group_moves;
@@ -51,8 +49,8 @@ uint8_t KorfHeuristicDB::GetEstimatedMovesNumber(const Cube& cube) const {
     uint8_t edge_permutations_moves;
 
     corner_moves = _corner_db.GetEstimatedMovesNumber(cube);
-    edge_first_group_moves = _edge_first_group_db.GetEstimatedMovesNumber(cube);
-    edge_second_group_moves = _edge_second_group_db.GetEstimatedMovesNumber(cube);
+    edge_first_group_moves = _edge_group1_db.GetEstimatedMovesNumber(cube);
+    edge_second_group_moves = _edge_group2_db.GetEstimatedMovesNumber(cube);
     edge_permutations_moves = _edge_permutations_db.GetEstimatedMovesNumber(cube);
 
 #ifndef _RELEASE

@@ -1,12 +1,6 @@
 #include "CornerDB.hpp"
 
-/// There are 8!*3^7 possible corner permutations with orientation.
-/// Each permutation is reachable in 11 moves or fewer, so each move can be stored in 4 bits.
-/// That gives 8!*3^7 / 2 / 1024 / 1024 (~42MB).
-CornerDB::CornerDB() : HeuristicDB(88179840) {}
-
 size_t CornerDB::GenerateDbIndexByCube(const Cube& cube) const {
-
     std::array<uint8_t, kCornersNumber> corners_start_permutation = {
             cube.GetCornerIndex(Cube::Corner::ULB),
             cube.GetCornerIndex(Cube::Corner::URB),

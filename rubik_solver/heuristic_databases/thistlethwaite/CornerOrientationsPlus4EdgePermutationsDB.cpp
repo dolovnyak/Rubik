@@ -1,13 +1,6 @@
 #include "CornerOrientationsPlus4EdgePermutationsDB.hpp"
 
-/// For the four edges, there are 12! / (4! * (12 - 4)!) combinations:
-/// 4 edges by 12 positions, and we don't need edges permutations.
-/// There are 8 corners, and the orientations of 7 dictate the orientation of the 8th
-/// Corners have three possible orientations, so there are 3^7 corner orientation permutations.
-/// Total: 12C4 * 3^7 / 1024^2 / 2 = 1082565 / 1024 / 2 = ~528.60 KB on disk.
-CornerOrientationsPlus4EdgePermutationsDB::CornerOrientationsPlus4EdgePermutationsDB() : HeuristicDB(1082565) {}
-
-size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
+[[nodiscard]] size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
     std::array<uint8_t, 4> edge_combination{};
     size_t combination_index = 0;
 
@@ -30,7 +23,7 @@ size_t CornerOrientationsPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cu
             cube.GetCornerOrientation(Cube::Corner::DLF),
             cube.GetCornerOrientation(Cube::Corner::DLB),
             cube.GetCornerOrientation(Cube::Corner::DRB)
-            };
+    };
 
     /// Treat the orientations as a base-3 number, and convert it to base-10.
     /// 7 corner orientations dictate the orientation of the 8th, so only 7 need to be stored.

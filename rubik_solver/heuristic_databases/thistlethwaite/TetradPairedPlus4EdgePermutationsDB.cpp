@@ -24,19 +24,7 @@ namespace {
 
 }
 
-/// There are 8 corners, so there are 4 _pairs of tetrad paired corner combinations.
-/// The corners therefore need (8! / (6! * 2!)) * (6! / (4! * 2!)) * (4! / (2! * 2!) = 2520 elements.
-///
-/// For the four edges, there are 8C4 combinations:
-/// 4 edges and 8 positions (the E-slice edges are positioned in G2), and the order does not matter.
-///
-/// The parity is also stored.
-/// Parity of corners and edges is related - when the edge parity is even, the corner parity is even too.
-/// This doubles the number of elements the last bit in the index is used for parity, 0 for even, 1 for odd.
-/// 70 * 2520 * 2 / 1024^2 / 2 = 352800 / 1024^2 / 2 = ~.17MB on disk.
-TetradPairedPlus4EdgePermutationsDB::TetradPairedPlus4EdgePermutationsDB() : HeuristicDB(352800) {}
-
-size_t TetradPairedPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
+[[nodiscard]] size_t TetradPairedPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cube) const {
     std::array<std::pair<uint8_t, uint8_t>, 4> tetrad_pairs{};
 
     tetrad_pairs[0] = GetTetradPair(cube, Cube::Corner::ULB, Cube::Corner::URF);
@@ -71,10 +59,7 @@ size_t TetradPairedPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cu
 
     uint32_t edge_combination_rank = _combination_rank_maker.rank(edge_combination);
 
-    // Parity of the corners.  This uses the same logic as a bubble sort would
-    // to count the number of swaps needed, but toggles a boolean back and
-    // forth to keep track of whether the number of swaps required to sort the
-    // array of corner indexes is even or odd.
+    /// Parity of the corners. It's check is required number of moves to solved state is even or odd.
     uint8_t parity = 0;
 
     for (uint8_t i = 0; i < kCornersNumber; ++i) {
@@ -83,7 +68,6 @@ size_t TetradPairedPlus4EdgePermutationsDB::GenerateDbIndexByCube(const Cube& cu
         }
     }
 
-    // 2520 = 8C2*6C2*4C2.
+    /// 2520 = 8C2*6C2*4C2.
     return (edge_combination_rank * 2520 + pairs_rank) * 2 + parity;
-
 }

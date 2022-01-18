@@ -7,15 +7,15 @@
 #include "cube_defenitions.hpp"
 
 struct StateWithDepth {
-    StateWithDepth(const Cube& cube, uint8_t depth)
-    : cube(cube), depth(depth) {}
+    constexpr StateWithDepth(const Cube& cube, uint8_t depth)
+            : cube(cube), depth(depth) {}
 
     Cube    cube;
     uint8_t depth{};
 };
 
-template <size_t Size>
-void generate_db_through_bfs(HeuristicDB *db, std::array<Cube::Rotation, Size> possible_rotations) {
+template <size_t RotationsSize, size_t DbSize, class DbType>
+void generate_db_through_bfs(HeuristicDB<DbSize, DbType>* db, std::array<Cube::Rotation, RotationsSize> possible_rotations) {
     if (db->IsFull()) {
         throw std::logic_error("call db generate on full db");
     }

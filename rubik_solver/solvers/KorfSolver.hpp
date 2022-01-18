@@ -1,16 +1,15 @@
 #pragma once
 
-#include "Solver.hpp"
 #include "KorfHeuristicDB.hpp"
-#include "generate_db_through_bfs.hpp"
+#include "logs.hpp"
+#include "find_solve_through_ida_star.hpp"
 
-class KorfSolver : public Solver {
+class KorfSolver {
  public:
-    KorfSolver();
+    void InitHeuristics();
 
-    void InitHeuristics() override;
-    std::vector<Cube::Rotation> Solve() override;
+    std::vector<Cube::Rotation> Solve(Cube cube);
 
  private:
-    KorfHeuristicDB _korf_heuristics;
+//    KorfHeuristicDB _korf_heuristics;
 };

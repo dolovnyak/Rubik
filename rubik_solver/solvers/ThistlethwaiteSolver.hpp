@@ -1,14 +1,13 @@
 #pragma once
 
-#include "Solver.hpp"
 #include "ThistlethwaiteHeuristicDB.hpp"
+#include "find_solve_through_ida_star.hpp"
 
-class ThistlethwaiteSolver : public Solver {
+class ThistlethwaiteSolver {
  public:
-    ~ThistlethwaiteSolver() override = default;
+    void InitHeuristics();
 
-    void InitHeuristics() override;
-    std::vector<Cube::Rotation> Solve() override;
+    std::vector<Cube::Rotation> Solve(Cube cube);
 
 private:
     ThistlethwaiteHeuristicDB _thistlethwaite_heuristics;

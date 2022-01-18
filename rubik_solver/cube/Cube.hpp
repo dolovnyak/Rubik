@@ -28,6 +28,10 @@ public:
         B, OppositeB, B2,
     };
 
+    Cube() = default;
+    Cube(const Cube& cube) = default;
+    Cube(Cube&& cube) = default;
+
     [[nodiscard]] bool IsSolved() const;
 
     Cube& Rotate(Rotation rotation);

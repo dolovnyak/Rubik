@@ -7,20 +7,17 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(${PROJECT_NAME}
         main.cpp
         cube/Cube.cpp
-        solvers/Solver.cpp
         solvers/KorfSolver.cpp
         solvers/ThistlethwaiteSolver.cpp
-        heuristic_databases/HeuristicDB.cpp
         heuristic_databases/korf/KorfHeuristicDB.cpp
         heuristic_databases/korf/EdgeGroup1DB.cpp
         heuristic_databases/korf/EdgeGroup2DB.cpp
         heuristic_databases/korf/EdgePermutationsDB.cpp
         heuristic_databases/korf/CornerDB.cpp
-        heuristic_databases/thistlethwaite/EdgeOrientationsDB.cpp
         heuristic_databases/thistlethwaite/CornerOrientationsPlus4EdgePermutationsDB.cpp
+        heuristic_databases/thistlethwaite/EdgeOrientationsDB.cpp
         heuristic_databases/thistlethwaite/TetradPairedPlus4EdgePermutationsDB.cpp
         heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.cpp
-        heuristic_databases/thistlethwaite/ThistlethwaiteHeuristicDB.hpp
         utilities/UnorderedPairSetRankMaker.hpp
         utilities/CombinationRankMaker.hpp
         )
@@ -41,3 +38,5 @@ set_target_properties(${PROJECT_NAME}
         )
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+#set(CMAKE_CXX_FLAGS_DEBUG "-O3")

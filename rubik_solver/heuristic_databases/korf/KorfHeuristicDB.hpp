@@ -20,8 +20,8 @@ class KorfHeuristicDB {
     [[nodiscard]] uint8_t GetEstimatedMovesNumber(const Cube& cube) const;
 
  private:
-    CornerDB _corner_db;
-    EdgeGroup1DB _edge_first_group_db;
-    EdgeGroup2DB _edge_second_group_db;
-    EdgePermutationsDB _edge_permutations_db;
+    HeuristicDB<kCornersDbSize, CornerDB> _corner_db;
+    HeuristicDB<kEdgesGroup1DbSize, EdgeGroup1DB> _edge_group1_db;
+    HeuristicDB<kEdgesGroup2DbSize, EdgeGroup2DB> _edge_group2_db;
+    HeuristicDB<kEdgePermutationsDbSize, EdgePermutationsDB> _edge_permutations_db;
 };
