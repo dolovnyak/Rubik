@@ -6,7 +6,7 @@ void ThistlethwaiteSolver::InitHeuristics() {
     LOG_INFO("Init Thistlethwaite heuristic databases SUCCESS");
 }
 
-std::vector<Cube::Rotation> ThistlethwaiteSolver::Solve(Cube cube) {
+std::vector<Cube::Rotation> ThistlethwaiteSolver::Solve(const Cube& cube) {
 //    LOG_INFO("Thistlethwaite step1");
 //    std::vector<Cube::Rotation> res = find_solve_through_ida_star(std::move(_thistlethwaite_heuristics.step1_db), cube);
 //

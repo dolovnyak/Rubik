@@ -8,8 +8,8 @@ class KorfSolver {
  public:
     void InitHeuristics();
 
-    std::vector<Cube::Rotation> Solve(Cube cube);
+    std::vector<Cube::Rotation> Solve(const Cube& cube);
 
  private:
-//    KorfHeuristicDB _korf_heuristics;
+    KorfHeuristicDB _korf_heuristics;
 };

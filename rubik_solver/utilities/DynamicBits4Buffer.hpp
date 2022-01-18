@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <algorithm>
 
 class DynamicBits4Buffer {
  public:
@@ -10,6 +11,12 @@ class DynamicBits4Buffer {
         for (size_t i = 0; i < size / 2 + 1; ++i) {
             _data[i] = value;
         }
+    }
+
+    DynamicBits4Buffer(DynamicBits4Buffer&& buffer) {
+        std::swap(_data, buffer._data);
+        std::swap(_storage_size, buffer._storage_size);
+        std::swap(_size, buffer._size);
     }
 
     ~DynamicBits4Buffer() {
@@ -25,9 +32,9 @@ class DynamicBits4Buffer {
     [[nodiscard]] inline uint8_t* GetRawData();
 
  private:
-    size_t      _size;
-    size_t      _storage_size;
-    uint8_t*    _data;
+    size_t      _size = 0;
+    size_t      _storage_size = 0;
+    uint8_t*    _data = nullptr;
 };
 
 

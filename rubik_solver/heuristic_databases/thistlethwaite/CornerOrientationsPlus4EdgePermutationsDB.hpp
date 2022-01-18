@@ -27,7 +27,6 @@ static constexpr std::array<Cube::Rotation, 14> kThistlethwaiteStep2Rotations = 
         Cube::Rotation::B2,
 };
 
-
 /// Step 2 db in thistlethwaite algorithm.
 class CornerOrientationsPlus4EdgePermutationsDB {
 public:

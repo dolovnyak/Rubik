@@ -729,3 +729,10 @@ Cube Cube::Rotate(const Cube &cube, Cube::Rotation rotation) {
     Cube copy(cube);
     return copy.Rotate(rotation);
 }
+
+Cube& Cube::ApplyRotations(const std::vector<Cube::Rotation>& cube_rotations) {
+    for (const auto& rotation : cube_rotations) {
+        this->Rotate(rotation);
+    }
+    return *this;
+}

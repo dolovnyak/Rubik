@@ -4,6 +4,7 @@
 #include <array>
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 class Cube {
 public:
@@ -65,6 +66,8 @@ public:
     Cube &RotationD();
     Cube &OppositeRotationD();
     Cube &RotationD2();
+
+    Cube& ApplyRotations(const std::vector<Cube::Rotation>& cube_rotations);
 
 private:
     struct Cubie {

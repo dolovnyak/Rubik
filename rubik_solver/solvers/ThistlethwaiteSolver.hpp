@@ -7,7 +7,7 @@ class ThistlethwaiteSolver {
  public:
     void InitHeuristics();
 
-    std::vector<Cube::Rotation> Solve(Cube cube);
+    std::vector<Cube::Rotation> Solve(const Cube& cube);
 
 private:
     ThistlethwaiteHeuristicDB _thistlethwaite_heuristics;
