@@ -76,7 +76,7 @@ void SolverProcessing(Solver solver, Cube cube) {
     std::vector<Cube::Rotation> solve_rotations = solver.Solve(cube);
     std::cout << solve_rotations << std::endl;
     cube.ApplyRotations(solve_rotations);
-    print_cube(cube);
+//    print_cube(cube);
 }
 
 }
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     argparse::ArgumentParser argparse("rubik-solver");
 
     argparse.add_argument("cube_rotations")
-            .default_value("")
+            .required()
             .help("queue of cube rotations.");
 
     argparse.add_argument("-a", "--algorithm")
@@ -103,8 +103,12 @@ int main(int argc, char **argv) {
     }
 
     std::string string_rotations = argparse.get<std::string>("cube_rotations");
+    std::vector rotations = ToRotationsArray(string_rotations);
+    if (rotations.empty()) {
+        exit(0);
+    }
     Cube cube;
-    cube.ApplyRotations(ToRotationsArray(string_rotations));
+    cube.ApplyRotations(rotations);
 
     Algorithm algorithm = argparse.get<Algorithm>("-a");
     LOG_INFO("Argparse finish.");

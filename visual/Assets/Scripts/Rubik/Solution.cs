@@ -134,5 +134,9 @@ public class Solution : MonoBehaviour
             _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, -1, 1));
             _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, -1, 1));
         }
+        else 
+        {
+            Debug.LogError("error: \"" + nameRotate + "\"");
+        }
     }
 }

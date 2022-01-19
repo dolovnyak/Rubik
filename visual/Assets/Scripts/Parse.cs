@@ -55,6 +55,7 @@ public class Parse : MonoBehaviour
             process = new Process();
 
             process.StartInfo.FileName = Application.dataPath + "/../../rubik_solver/rubik-solver";
+            // process.StartInfo.FileName = Application.dataPath + "/../../a.out";
             process.StartInfo.Arguments = ProcessArguments();
 
             process.EnableRaisingEvents = false;
@@ -65,14 +66,28 @@ public class Parse : MonoBehaviour
 
             process.OutputDataReceived += new DataReceivedEventHandler(DataReceived);
             process.ErrorDataReceived += new DataReceivedEventHandler(ErrorReceived);
+            UnityEngine.Debug.LogError("Hui1");
 
             process.Start();
+
+            UnityEngine.Debug.LogError("Hui2");
+            Invoke("test", 5.0f);
+            // process.BeginOutputReadLine();
+            // messageStream = process.StandardInput;
+            
+            // Solution.StartSolution();
+            // Invoke("StartSolution", 3.0f);
+        }
+    }
+
+    void test()
+    {
+
+            UnityEngine.Debug.LogError("Hui3");
             process.BeginOutputReadLine();
             messageStream = process.StandardInput;
             
             Solution.StartSolution();
-            Invoke("StartSolution", 1.0f);
-        }
     }
 
     void StartSolution()
@@ -94,7 +109,7 @@ public class Parse : MonoBehaviour
             arguments += " \"" + Solution.QueueSteps.Dequeue() + "\"";
         }
 
-        UnityEngine.Debug.Log(arguments);
+        UnityEngine.Debug.Log("aaa: " + arguments);
         return arguments;
     }
 
