@@ -2,6 +2,8 @@
 
 #include "Cube.hpp"
 #include <vector>
+#include <iomanip>
+#include <iostream>
 
 constexpr int kEdgesNumber = 12;
 constexpr int kCornersNumber = 8;
@@ -81,8 +83,57 @@ static const std::unordered_map<Cube::Rotation, std::string> kRotationsToStringM
 
         {Cube::Rotation::B, "B"},
         {Cube::Rotation::OppositeB, "B'"},
-        {Cube::Rotation::B2, "B2"},
+        {Cube::Rotation::B2, "B2"}
 };
+
+inline void print_cube(const Cube& cube) {
+    char colors[] = {'W', 'G', 'R', 'B', 'O', 'Y'};
+
+    std::cout << std::setfill(' ') << '\n';
+
+    // Up face.
+    for (unsigned row = 0; row < 3; ++ row) {
+        std::cout << std::setw(8) << std::right;
+
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Up, row, col)] << ' ';
+        std::cout << '\n';
+    }
+    std::cout << std::endl;
+
+    // Left front, right, back.
+    for (unsigned row = 0; row < 3; ++ row)
+    {
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Left,  row, col)] << ' ';
+        std::cout << ' ';
+
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Front, row, col)] << ' ';
+        std::cout << ' ';
+
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Right, row, col)] << ' ';
+        std::cout << ' ';
+
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Back,  row, col)] << ' ';
+        std::cout << '\n';
+    }
+    std::cout << std::endl;
+
+    // Down face.
+    for (unsigned row = 0; row < 3; ++ row)
+    {
+        std::cout << std::setw(8) << std::right;
+
+        for (unsigned col = 0; col < 3; ++ col)
+            std::cout << colors[(unsigned)cube.GetColor(Cube::Face::Down, row, col)] << ' ';
+        std::cout << '\n';
+    }
+
+    std::cout << std::endl;
+}
 
 inline std::ostream &operator<<(std::ostream &os, const std::vector<Cube::Rotation>& rotations) {
     for (auto rotation : rotations) {

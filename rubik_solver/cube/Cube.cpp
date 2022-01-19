@@ -1,360 +1,345 @@
 #include "Cube.hpp"
 
-///**
-// * Get the edge colors at an index.
-// */
-//std::array<Cube::Color, 2> Cube::getEdgeColors(
-//        Cube::Edge ind) const
-//{
-//    std::array<Color, 2> colors;
-//
-//    Cubie edge = _edges.at((unsigned)ind);
-//
-//    switch ((Edge)edge.index)
-//    {
-//        case Edge::UB:
-//            colors[0] = Color::Red;
-//            colors[1] = Color::Yellow;
-//            break;
-//
-//        case Edge::UR:
-//            colors[0] = Color::Red;
-//            colors[1] = Color::Green;
-//            break;
-//
-//        case Edge::UF:
-//            colors[0] = Color::Red;
-//            colors[1] = Color::White;
-//            break;
-//
-//        case Edge::UL:
-//            colors[0] = Color::Red;
-//            colors[1] = Color::Blue;
-//            break;
-//
-//        case Edge::FR:
-//            colors[0] = Color::White;
-//            colors[1] = Color::Green;
-//            break;
-//
-//        case Edge::FL:
-//            colors[0] = Color::White;
-//            colors[1] = Color::Blue;
-//            break;
-//
-//        case Edge::BL:
-//            colors[0] = Color::Yellow;
-//            colors[1] = Color::Blue;
-//            break;
-//
-//        case Edge::BR:
-//            colors[0] = Color::Yellow;
-//            colors[1] = Color::Green;
-//            break;
-//
-//        case Edge::DF:
-//            colors[0] = Color::Orange;
-//            colors[1] = Color::White;
-//            break;
-//
-//        case Edge::DL:
-//            colors[0] = Color::Orange;
-//            colors[1] = Color::Blue;
-//            break;
-//
-//        case Edge::DB:
-//            colors[0] = Color::Orange;
-//            colors[1] = Color::Yellow;
-//            break;
-//
-//        case Edge::DR:
-//            colors[0] = Color::Orange;
-//            colors[1] = Color::Green;
-//            break;
-//    }
-//
-//    if (edge.orientation == 1)
-//        std::swap(colors[0], colors[1]);
-//
-//    return colors;
-//}
-//
-///**
-// * Get the corner colors at an index.  Three colors are returns: U or D, L or
-// * R, F or B (YXZ).
-// */
-//std::array<Cube::Color, 3> Cube::getCornerColors(
-//        Cube::Corner ind) const
-//{
-//    std::array<Color, 3> colors;
-//
-//    Cubie corner = _corners.at((unsigned)ind);
-//
-//    unsigned i0, i1, i2;
-//
-//    // Red or orange on top.
-//    if (corner.orientation == 0)
-//    {
-//        i0 = 0;
-//        i1 = 1;
-//        i2 = 2;
-//
-//        // A quarter turn of U or D std::swaps the two other colors.
-//        if ((corner.index + (unsigned)ind) % 2 == 1)
-//            std::swap(i1, i2);
-//    }
-//    else if (corner.orientation == 1)
-//    {
-//        i0 = 1;
-//        i1 = 2;
-//        i2 = 0;
-//
-//        if ((corner.index + (unsigned)ind) % 2 == 1)
-//            std::swap(i0, i1);
-//    }
-//    else // if (corner.orientation == 2)
-//    {
-//        i0 = 2;
-//        i1 = 0;
-//        i2 = 1;
-//
-//        if ((corner.index + (unsigned)ind) % 2 == 1)
-//            std::swap(i0, i2);
-//    }
-//
-//    switch ((Corner)corner.index)
-//    {
-//        case Corner::ULB:
-//            colors[i0] = Color::Red;
-//            colors[i1] = Color::Blue;
-//            colors[i2] = Color::Yellow;
-//            break;
-//
-//        case Corner::URB:
-//            colors[i0] = Color::Red;
-//            colors[i1] = Color::Green;
-//            colors[i2] = Color::Yellow;
-//            break;
-//
-//        case Corner::URF:
-//            colors[i0] = Color::Red;
-//            colors[i1] = Color::Green;
-//            colors[i2] = Color::White;
-//            break;
-//
-//        case Corner::ULF:
-//            colors[i0] = Color::Red;
-//            colors[i1] = Color::Blue;
-//            colors[i2] = Color::White;
-//            break;
-//
-//        case Corner::DLF:
-//            colors[i0] = Color::Orange;
-//            colors[i1] = Color::Blue;
-//            colors[i2] = Color::White;
-//            break;
-//
-//        case Corner::DLB:
-//            colors[i0] = Color::Orange;
-//            colors[i1] = Color::Blue;
-//            colors[i2] = Color::Yellow;
-//            break;
-//
-//        case Corner::DRB:
-//            colors[i0] = Color::Orange;
-//            colors[i1] = Color::Green;
-//            colors[i2] = Color::Yellow;
-//            break;
-//
-//        case Corner::DRF:
-//            colors[i0] = Color::Orange;
-//            colors[i1] = Color::Green;
-//            colors[i2] = Color::White;
-//            break;
-//    }
-//
-//    return colors;
-//}
-//
-///**
-// * Get the facet color using a face, row, and column.
-// */
-//Cube::Color Cube::getColor(
-//        Face f, unsigned row, unsigned col) const
-//{
-//    if (row == 1 && col == 1)
-//        return (Color)_centers[(unsigned)f];
-//
-//    // The colors are arranged Y, X, Z (see getCornerColors).
-//    if (f == Face::Up)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::ULB)[0];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UB)[0];
-//            else
-//                return getCornerColors(Corner::URB)[0];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::UL)[0];
-//            else
-//                return getEdgeColors(Edge::UR)[0];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::ULF)[0];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UF)[0];
-//            else
-//                return getCornerColors(Corner::URF)[0];
-//        }
-//    }
-//    else if (f == Face::Left)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::ULB)[1];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UL)[1];
-//            else
-//                return getCornerColors(Corner::ULF)[1];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::BL)[1];
-//            else
-//                return getEdgeColors(Edge::FL)[1];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DLB)[1];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DL)[1];
-//            else
-//                return getCornerColors(Corner::DLF)[1];
-//        }
-//    }
-//    else if (f == Face::Front)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::ULF)[2];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UF)[1];
-//            else
-//                return getCornerColors(Corner::URF)[2];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::FL)[0];
-//            else
-//                return getEdgeColors(Edge::FR)[0];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DLF)[2];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DF)[1];
-//            else
-//                return getCornerColors(Corner::DRF)[2];
-//        }
-//    }
-//    else if (f == Face::Right)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::URF)[1];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UR)[1];
-//            else
-//                return getCornerColors(Corner::URB)[1];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::FR)[1];
-//            else
-//                return getEdgeColors(Edge::BR)[1];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DRF)[1];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DR)[1];
-//            else
-//                return getCornerColors(Corner::DRB)[1];
-//        }
-//    }
-//    else if (f == Face::Back)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::URB)[2];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::UB)[1];
-//            else
-//                return getCornerColors(Corner::ULB)[2];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::BR)[0];
-//            else
-//                return getEdgeColors(Edge::BL)[0];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DRB)[2];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DB)[1];
-//            else
-//                return getCornerColors(Corner::DLB)[2];
-//        }
-//    }
-//    else // if (f == Face::Down)
-//    {
-//        if (row == 0)
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DLF)[0];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DF)[0];
-//            else
-//                return getCornerColors(Corner::DRF)[0];
-//        }
-//        else if (row == 1)
-//        {
-//            if (col == 0)
-//                return getEdgeColors(Edge::DL)[0];
-//            else
-//                return getEdgeColors(Edge::DR)[0];
-//        }
-//        else
-//        {
-//            if (col == 0)
-//                return getCornerColors(Corner::DLB)[0];
-//            else if (col == 1)
-//                return getEdgeColors(Edge::DB)[0];
-//            else
-//                return getCornerColors(Corner::DRB)[0];
-//        }
-//    }
-//}
+std::array<Cube::Color, 2> Cube::GetEdgeColors(Cube::Edge ind) const {
+    std::array<Color, 2> colors;
+
+    Cubie edge = _edges.at((unsigned)ind);
+
+    switch ((Edge)edge.index)
+    {
+        case Edge::UB:
+            colors[0] = Color::Red;
+            colors[1] = Color::Yellow;
+            break;
+
+        case Edge::UR:
+            colors[0] = Color::Red;
+            colors[1] = Color::Green;
+            break;
+
+        case Edge::UF:
+            colors[0] = Color::Red;
+            colors[1] = Color::White;
+            break;
+
+        case Edge::UL:
+            colors[0] = Color::Red;
+            colors[1] = Color::Blue;
+            break;
+
+        case Edge::FR:
+            colors[0] = Color::White;
+            colors[1] = Color::Green;
+            break;
+
+        case Edge::FL:
+            colors[0] = Color::White;
+            colors[1] = Color::Blue;
+            break;
+
+        case Edge::BL:
+            colors[0] = Color::Yellow;
+            colors[1] = Color::Blue;
+            break;
+
+        case Edge::BR:
+            colors[0] = Color::Yellow;
+            colors[1] = Color::Green;
+            break;
+
+        case Edge::DF:
+            colors[0] = Color::Orange;
+            colors[1] = Color::White;
+            break;
+
+        case Edge::DL:
+            colors[0] = Color::Orange;
+            colors[1] = Color::Blue;
+            break;
+
+        case Edge::DB:
+            colors[0] = Color::Orange;
+            colors[1] = Color::Yellow;
+            break;
+
+        case Edge::DR:
+            colors[0] = Color::Orange;
+            colors[1] = Color::Green;
+            break;
+    }
+
+    if (edge.orientation == 1)
+        std::swap(colors[0], colors[1]);
+
+    return colors;
+}
+
+/// Get the corner colors at an index.  Three colors are returns: U or D, L or R, F or B (YXZ).
+std::array<Cube::Color, 3> Cube::GetCornerColors(Cube::Corner ind) const {
+    std::array<Color, 3> colors;
+
+    Cubie corner = _corners.at((unsigned)ind);
+
+    unsigned i0, i1, i2;
+
+    // Red or orange on top.
+    if (corner.orientation == 0)
+    {
+        i0 = 0;
+        i1 = 1;
+        i2 = 2;
+
+        // A quarter turn of U or D std::swaps the two other colors.
+        if ((corner.index + (unsigned)ind) % 2 == 1)
+            std::swap(i1, i2);
+    }
+    else if (corner.orientation == 1)
+    {
+        i0 = 1;
+        i1 = 2;
+        i2 = 0;
+
+        if ((corner.index + (unsigned)ind) % 2 == 1)
+            std::swap(i0, i1);
+    }
+    else // if (corner.orientation == 2)
+    {
+        i0 = 2;
+        i1 = 0;
+        i2 = 1;
+
+        if ((corner.index + (unsigned)ind) % 2 == 1)
+            std::swap(i0, i2);
+    }
+
+    switch ((Corner)corner.index)
+    {
+        case Corner::ULB:
+            colors[i0] = Color::Red;
+            colors[i1] = Color::Blue;
+            colors[i2] = Color::Yellow;
+            break;
+
+        case Corner::URB:
+            colors[i0] = Color::Red;
+            colors[i1] = Color::Green;
+            colors[i2] = Color::Yellow;
+            break;
+
+        case Corner::URF:
+            colors[i0] = Color::Red;
+            colors[i1] = Color::Green;
+            colors[i2] = Color::White;
+            break;
+
+        case Corner::ULF:
+            colors[i0] = Color::Red;
+            colors[i1] = Color::Blue;
+            colors[i2] = Color::White;
+            break;
+
+        case Corner::DLF:
+            colors[i0] = Color::Orange;
+            colors[i1] = Color::Blue;
+            colors[i2] = Color::White;
+            break;
+
+        case Corner::DLB:
+            colors[i0] = Color::Orange;
+            colors[i1] = Color::Blue;
+            colors[i2] = Color::Yellow;
+            break;
+
+        case Corner::DRB:
+            colors[i0] = Color::Orange;
+            colors[i1] = Color::Green;
+            colors[i2] = Color::Yellow;
+            break;
+
+        case Corner::DRF:
+            colors[i0] = Color::Orange;
+            colors[i1] = Color::Green;
+            colors[i2] = Color::White;
+            break;
+    }
+
+    return colors;
+}
+
+Cube::Color Cube::GetColor(Face f, unsigned row, unsigned col) const {
+    if (row == 1 && col == 1)
+        return (Color)_centers[(unsigned)f];
+
+    // The colors are arranged Y, X, Z (see getCornerColors).
+    if (f == Face::Up)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::ULB)[0];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UB)[0];
+            else
+                return GetCornerColors(Corner::URB)[0];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::UL)[0];
+            else
+                return GetEdgeColors(Edge::UR)[0];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::ULF)[0];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UF)[0];
+            else
+                return GetCornerColors(Corner::URF)[0];
+        }
+    }
+    else if (f == Face::Left)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::ULB)[1];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UL)[1];
+            else
+                return GetCornerColors(Corner::ULF)[1];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::BL)[1];
+            else
+                return GetEdgeColors(Edge::FL)[1];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DLB)[1];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DL)[1];
+            else
+                return GetCornerColors(Corner::DLF)[1];
+        }
+    }
+    else if (f == Face::Front)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::ULF)[2];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UF)[1];
+            else
+                return GetCornerColors(Corner::URF)[2];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::FL)[0];
+            else
+                return GetEdgeColors(Edge::FR)[0];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DLF)[2];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DF)[1];
+            else
+                return GetCornerColors(Corner::DRF)[2];
+        }
+    }
+    else if (f == Face::Right)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::URF)[1];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UR)[1];
+            else
+                return GetCornerColors(Corner::URB)[1];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::FR)[1];
+            else
+                return GetEdgeColors(Edge::BR)[1];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DRF)[1];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DR)[1];
+            else
+                return GetCornerColors(Corner::DRB)[1];
+        }
+    }
+    else if (f == Face::Back)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::URB)[2];
+            else if (col == 1)
+                return GetEdgeColors(Edge::UB)[1];
+            else
+                return GetCornerColors(Corner::ULB)[2];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::BR)[0];
+            else
+                return GetEdgeColors(Edge::BL)[0];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DRB)[2];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DB)[1];
+            else
+                return GetCornerColors(Corner::DLB)[2];
+        }
+    }
+    else // if (f == Face::Down)
+    {
+        if (row == 0)
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DLF)[0];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DF)[0];
+            else
+                return GetCornerColors(Corner::DRF)[0];
+        }
+        else if (row == 1)
+        {
+            if (col == 0)
+                return GetEdgeColors(Edge::DL)[0];
+            else
+                return GetEdgeColors(Edge::DR)[0];
+        }
+        else
+        {
+            if (col == 0)
+                return GetCornerColors(Corner::DLB)[0];
+            else if (col == 1)
+                return GetEdgeColors(Edge::DB)[0];
+            else
+                return GetCornerColors(Corner::DRB)[0];
+        }
+    }
+}
 
 uint8_t Cube::GetEdgeIndex(Edge edge) const {
     return _edges[static_cast<int>(edge)].index;
@@ -722,6 +707,8 @@ Cube &Cube::Rotate(Cube::Rotation rotation) {
         case Cube::Rotation::B: return RotationB();
         case Cube::Rotation::OppositeB: return OppositeRotationB();
         case Cube::Rotation::B2: return RotationB2();
+
+        case Cube::Rotation::None: return *this;
     }
 }
 

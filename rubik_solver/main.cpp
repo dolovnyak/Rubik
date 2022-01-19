@@ -75,6 +75,8 @@ void SolverProcessing(Solver solver, const Cube& cube) {
     solver.InitHeuristics();
     std::vector<Cube::Rotation> solve_rotations = solver.Solve(cube);
     std::cout << solve_rotations << std::endl;
+    Cube cube1(cube);
+    print_cube(cube1.ApplyRotations(solve_rotations));
 }
 
 }
@@ -101,8 +103,10 @@ int main(int argc, char **argv) {
     }
 
     Cube cube;
+    print_cube(cube);
     std::string string_rotations = argparse.get<std::string>("cube_rotations");
     cube.ApplyRotations(ToRotationsArray(string_rotations));
+    print_cube(cube);
 
     Algorithm algorithm = argparse.get<Algorithm>("-a");
     LOG_INFO("Argparse finish.");

@@ -14,7 +14,7 @@ struct StateWithDepth {
     uint8_t depth{};
 };
 
-template <size_t RotationsSize, size_t DbSize, class DbType>
+template <class DbType, size_t DbSize, size_t RotationsSize>
 void generate_db_through_bfs(HeuristicDB<DbSize, DbType>* db, std::array<Cube::Rotation, RotationsSize> possible_rotations) {
     if (db->IsFull()) {
         throw std::logic_error("call db generate on full db");

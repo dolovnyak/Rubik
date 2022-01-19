@@ -27,6 +27,7 @@ public:
         D, OppositeD, D2,
         F, OppositeF, F2,
         B, OppositeB, B2,
+        None
     };
 
     Cube() = default;
@@ -42,6 +43,10 @@ public:
     [[nodiscard]] uint8_t GetEdgeOrientation(Edge edge) const;
     [[nodiscard]] uint8_t GetCornerIndex(Corner corner) const;
     [[nodiscard]] uint8_t GetCornerOrientation(Corner corner) const;
+
+    std::array<Cube::Color, 2> GetEdgeColors(Cube::Edge ind) const;
+    std::array<Cube::Color, 3> GetCornerColors(Cube::Corner ind) const;
+    Cube::Color GetColor(Face f, unsigned row, unsigned col) const;
 
     Cube &RotationU();
     Cube &OppositeRotationU();
