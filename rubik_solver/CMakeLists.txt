@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(rubik-solver)
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -D_RELEASE")
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(${PROJECT_NAME}
@@ -38,5 +38,5 @@ set_target_properties(${PROJECT_NAME}
         )
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
-#set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-set(CMAKE_CXX_FLAGS_DEBUG "-O3")
+set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")

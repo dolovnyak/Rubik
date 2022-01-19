@@ -29,7 +29,8 @@ struct PriorityNode {
 
 template<size_t MaxRotationsSize, class Heuristic, size_t RotationsSize>
 std::vector<Cube::Rotation> find_solve_through_ida_star(
-        Heuristic heuristic, const Cube& cube, std::array<Cube::Rotation, RotationsSize> possible_rotations) {
+        Heuristic heuristic, const Cube& cube, std::array<Cube::Rotation, RotationsSize> possible_rotations,
+        bool (*IsSolve)(const Cube& cube)) {
     std::stack<StateNode> nodes;
     std::array<Cube::Rotation, MaxRotationsSize> rotations;
 
@@ -37,7 +38,6 @@ std::vector<Cube::Rotation> find_solve_through_ida_star(
     uint8_t current_optimal_estimate = heuristic.GetEstimatedMovesNumber(cube) - 1;
     uint8_t max_depth = 0;
 
-    bool is_solved = false;
     while (true) {
         if (nodes.empty()) {
             nodes.emplace(cube, 0, Cube::Rotation::None);
@@ -53,7 +53,7 @@ std::vector<Cube::Rotation> find_solve_through_ida_star(
         rotations[current_node.depth] = current_node.rotation;
 
         if (current_node.depth == current_optimal_estimate) {
-            if (current_node.cube.IsSolved()) { break; }
+            if (IsSolve(current_node.cube)) { break; }
             continue;
         }
 

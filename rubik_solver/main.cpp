@@ -71,12 +71,12 @@ std::vector<Cube::Rotation> ToRotationsArray(const std::string& value) {
 }
 
 template<class Solver>
-void SolverProcessing(Solver solver, const Cube& cube) {
+void SolverProcessing(Solver solver, Cube cube) {
     solver.InitHeuristics();
     std::vector<Cube::Rotation> solve_rotations = solver.Solve(cube);
     std::cout << solve_rotations << std::endl;
-    Cube cube1(cube);
-    print_cube(cube1.ApplyRotations(solve_rotations));
+    cube.ApplyRotations(solve_rotations);
+    print_cube(cube);
 }
 
 }
@@ -102,11 +102,9 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
-    Cube cube;
-    print_cube(cube);
     std::string string_rotations = argparse.get<std::string>("cube_rotations");
+    Cube cube;
     cube.ApplyRotations(ToRotationsArray(string_rotations));
-    print_cube(cube);
 
     Algorithm algorithm = argparse.get<Algorithm>("-a");
     LOG_INFO("Argparse finish.");
@@ -115,9 +113,9 @@ int main(int argc, char **argv) {
         LOG_INFO("Processing Algorithm: ", algorithm);
         switch (algorithm) {
             case Algorithm::Thistlethwaite:
-                SolverProcessing(ThistlethwaiteSolver(), cube);
+                SolverProcessing(ThistlethwaiteSolver(), std::move(cube)); break;
             case Algorithm::Korf:
-                SolverProcessing(KorfSolver(), cube);
+                SolverProcessing(KorfSolver(), std::move(cube)); break;
         }
     }
     catch (const std::exception& e) {

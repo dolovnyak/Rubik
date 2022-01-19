@@ -7,8 +7,12 @@ void KorfSolver::InitHeuristics() {
     LOG_INFO("Init Korf heuristic databases SUCCESS");
 }
 
+bool solve_checker(const Cube& cube) {
+    return cube.IsSolved();
+}
+
 std::vector<Cube::Rotation> KorfSolver::Solve(const Cube& cube) {
     LOG_INFO("Start solve");
-    return find_solve_through_ida_star<20>(std::move(_korf_heuristics), cube, kAllRotations);
+    return find_solve_through_ida_star<20>(std::move(_korf_heuristics), cube, kAllRotations, solve_checker);
 }
 
