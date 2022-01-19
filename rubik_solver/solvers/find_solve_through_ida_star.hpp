@@ -46,7 +46,6 @@ std::vector<Cube::Rotation> find_solve_through_ida_star(
 
         StateNode current_node = nodes.top();
         nodes.pop();
-        std::cout << (int) current_optimal_estimate << std::endl;
 
         if (max_depth < current_node.depth) {
             max_depth = current_node.depth;
@@ -62,37 +61,9 @@ std::vector<Cube::Rotation> find_solve_through_ida_star(
             Cube new_cube_state = Cube::Rotate(current_node.cube, rotation);
             uint8_t dh = current_node.depth + 1 + heuristic.GetEstimatedMovesNumber(new_cube_state);
             if (dh <= current_optimal_estimate) {
-                tmp_nodes.emplace(new_cube_state, rotation, dh);
+                nodes.emplace(new_cube_state, current_node.depth + 1, rotation);
             }
         }
-
-        while (!tmp_nodes.empty()) {
-            nodes.emplace(tmp_nodes.front().cube, current_node.depth + 1, tmp_nodes.front().rotation);
-            tmp_nodes.pop();
-        }
-
-
-                /////////////////////////////////
-                std::cout << "AAAA" << std::endl;
-                if (current_node.rotation == Cube::Rotation::None) {
-                    std::cout << "rotation: None" << std::endl;
-                }
-                else {
-                    std::vector<Cube::Rotation> rot {current_node.rotation};
-                    std::cout << "rotation: " << rot << std::endl;
-                }
-                print_cube(current_node.cube);
-                std::cout << std::endl;
-                Cube check(cube);
-                std::vector<Cube::Rotation> res_rotations;
-                for (uint8_t i = 0; i <= max_depth; ++i) {
-                    if (rotations[i] != Cube::Rotation::None) {
-                        res_rotations.push_back(rotations[i]);
-                    }
-                }
-                print_cube(check.ApplyRotations(res_rotations));
-                std::cout << "BBBB" << std::endl;
-        /////////////////////////////////////////
     }
 
     std::vector<Cube::Rotation> res_rotations;
