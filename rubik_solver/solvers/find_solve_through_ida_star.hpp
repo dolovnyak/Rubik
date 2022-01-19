@@ -45,8 +45,13 @@ std::vector<Cube::Rotation> find_solve_through_ida_star(
 
         /////////////////////////////////
         std::cout << "AAAA" << std::endl;
-        std::vector<Cube::Rotation> rot {current_node.rotation};
-        std::cout << "rotation: " << rot << std::endl;
+        if (current_node.rotation == Cube::Rotation::None) {
+            std::cout << "rotation: None" << std::endl;
+        }
+        else {
+            std::vector<Cube::Rotation> rot {current_node.rotation};
+            std::cout << "rotation: " << rot << std::endl;
+        }
         print_cube(current_node.cube);
         std::cout << std::endl;
         Cube check(cube);
