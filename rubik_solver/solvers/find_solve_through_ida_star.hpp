@@ -31,9 +31,9 @@ template<size_t MaxRotationsSize, class Heuristic, size_t RotationsSize>
 std::vector<Cube::Rotation> find_solve_through_ida_star(
         Heuristic heuristic, const Cube& cube, std::array<Cube::Rotation, RotationsSize> possible_rotations) {
     std::stack<StateNode> nodes;
-    std::queue<PriorityNode> tmp_nodes;
     std::array<Cube::Rotation, MaxRotationsSize> rotations;
 
+    /// -1 because it's become normal on the first run. (++current_optimal_estimate)
     uint8_t current_optimal_estimate = heuristic.GetEstimatedMovesNumber(cube) - 1;
     uint8_t max_depth = 0;
 
