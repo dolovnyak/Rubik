@@ -101,20 +101,20 @@ int main(int argc, char **argv) {
         LOG_WARNING(argparse);
         exit(0);
     }
-
-    std::string string_rotations = argparse.get<std::string>("cube_rotations");
-    std::vector rotations = ToRotationsArray(string_rotations);
-    if (rotations.empty()) {
-        exit(0);
-    }
-    Cube cube;
-    cube.ApplyRotations(rotations);
-
-    Algorithm algorithm = argparse.get<Algorithm>("-a");
     LOG_INFO("Argparse finish.");
 
     try {
+        std::string string_rotations = argparse.get<std::string>("cube_rotations");
+        std::vector rotations = ToRotationsArray(string_rotations);
+        if (rotations.empty()) {
+            exit(0);
+        }
+        Cube cube;
+        cube.ApplyRotations(rotations);
+
+        Algorithm algorithm = argparse.get<Algorithm>("-a");
         LOG_INFO("Processing Algorithm: ", algorithm);
+
         switch (algorithm) {
             case Algorithm::Thistlethwaite:
                 SolverProcessing(ThistlethwaiteSolver(), std::move(cube)); break;

@@ -3,3 +3,4 @@
 *.DS_Store
 *.swp
 rubik_solver/rubik-solver
+*build
