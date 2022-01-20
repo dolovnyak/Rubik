@@ -75,7 +75,7 @@ void SolverProcessing(Solver solver, Cube cube) {
     solver.InitHeuristics();
     std::vector<Cube::Rotation> solve_rotations = solver.Solve(cube);
     std::cout << solve_rotations << std::endl;
-    cube.ApplyRotations(solve_rotations);
+//    cube.ApplyRotations(solve_rotations);
 //    print_cube(cube);
 }
 

@@ -110,8 +110,7 @@ public class FacetRotations : MonoBehaviour
         {
             RotateUD(cellPosition);
         }
-
-        CreateListTurn(cellPosition);
+        
         _rotationProcess = true;
     }
 
@@ -132,7 +131,6 @@ public class FacetRotations : MonoBehaviour
             RotateUD(cellPosition);
         }
 
-        CreateListTurn(cellPosition);
         _rotationProcess = true;
     }
 
@@ -153,7 +151,6 @@ public class FacetRotations : MonoBehaviour
             RotateUD(cellPosition);
         }
 
-        CreateListTurn(cellPosition);
         _rotationProcess = true;
     }
 
@@ -173,7 +170,6 @@ public class FacetRotations : MonoBehaviour
             RotateUD(cellPosition);
         }
 
-        CreateListTurn(cellPosition);
         _rotationProcess = true;
     }
 
@@ -193,7 +189,6 @@ public class FacetRotations : MonoBehaviour
             RotateFB(cellPosition);
         }
 
-        CreateListTurn(cellPosition);
         _rotationProcess = true;
     }
 
@@ -212,8 +207,7 @@ public class FacetRotations : MonoBehaviour
             _axisRotate = Vector3.forward;
             RotateFB(cellPosition);
         }
-
-        CreateListTurn(cellPosition);
+        
         _rotationProcess = true;
     }
     
@@ -225,16 +219,25 @@ public class FacetRotations : MonoBehaviour
     {
         if (cellPosition.z == 1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberF(_rezusRotate);
         }
         else if (cellPosition.z == -1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberB(_rezusRotate);
         }
         else
         {
-            RememberF(-_rezusRotate);
-            RememberB(-_rezusRotate);
+            _rezusRotate = -_rezusRotate;
+            
+            cellPosition.z = 1.0f;
+            CreateListTurn(cellPosition);
+            cellPosition.z = -1.0f;
+            CreateListTurn(cellPosition);
+            
+            RememberF(_rezusRotate);
+            RememberB(_rezusRotate);
         }
     }
 
@@ -242,16 +245,25 @@ public class FacetRotations : MonoBehaviour
     {
         if (cellPosition.x == 1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberR(_rezusRotate);
         }
         else if (cellPosition.x == -1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberL(_rezusRotate);
         }
         else
         {
-            RememberR(-_rezusRotate);
-            RememberL(-_rezusRotate);
+            _rezusRotate = -_rezusRotate;
+            
+            cellPosition.x = 1.0f;
+            CreateListTurn(cellPosition);
+            cellPosition.x = -1.0f;
+            CreateListTurn(cellPosition);
+            
+            RememberR(_rezusRotate);
+            RememberL(_rezusRotate);
         }
     }
 
@@ -259,16 +271,25 @@ public class FacetRotations : MonoBehaviour
     {
         if (cellPosition.y == 1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberU(_rezusRotate);
         }
         else if (cellPosition.y == -1.0f)
         {
+            CreateListTurn(cellPosition);
             RememberD(_rezusRotate);
         }
         else
         {
-            RememberU(-_rezusRotate);
-            RememberD(-_rezusRotate);
+            _rezusRotate = -_rezusRotate;
+            
+            cellPosition.y = 1.0f;
+            CreateListTurn(cellPosition);
+            cellPosition.y = -1.0f;
+            CreateListTurn(cellPosition);
+            
+            RememberU(_rezusRotate);
+            RememberD(_rezusRotate);
         }
     }
     
@@ -296,7 +317,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == 1) ? "R" : "R'");
+            _solution.AddStep((rezusRotate == 1) ? "L" : "L'");
         }
     }
     
@@ -304,7 +325,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == -1) ? "L" : "L'");
+            _solution.AddStep((rezusRotate == -1) ? "R" : "R'");
         }
     }
 

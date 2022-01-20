@@ -84,26 +84,26 @@ public class Solution : MonoBehaviour
             _stepsString += "B' ";
         }
 
-        else if (nameRotate == "R")
-        {
-            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(1, 0, 1));
-            _stepsString += "R ";
-        }
-        else if (nameRotate == "R'")
-        {
-            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(1, 0, 1));
-            _stepsString += "R' ";
-        }
-
         else if (nameRotate == "L")
         {
-            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(-1, 0, 1));
+            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(1, 0, 1));
             _stepsString += "L ";
         }
         else if (nameRotate == "L'")
         {
-            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(-1, 0, 1));
+            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(1, 0, 1));
             _stepsString += "L' ";
+        }
+
+        else if (nameRotate == "R")
+        {
+            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(-1, 0, 1));
+            _stepsString += "R ";
+        }
+        else if (nameRotate == "R'")
+        {
+            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(-1, 0, 1));
+            _stepsString += "R' ";
         }
 
         else if (nameRotate == "U")
