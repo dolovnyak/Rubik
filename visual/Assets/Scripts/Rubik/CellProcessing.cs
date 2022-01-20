@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CellProcessing : MonoBehaviour
 {
+    [SerializeField] private bool IsSelectable;
     public GameObject Rubik;
     
     public GameObject Cube;

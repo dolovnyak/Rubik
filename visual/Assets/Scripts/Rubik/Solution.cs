@@ -10,6 +10,7 @@ public class Solution : MonoBehaviour
     private FacetRotations _rubikRotations;
 
     private bool _solution = false;
+    private string _stepsString;
 
     private void Start()
     {
@@ -23,6 +24,8 @@ public class Solution : MonoBehaviour
         {
             _solution = true;
 
+            _stepsString = string.Empty;
+
             NextStep();
         }
     }
@@ -34,13 +37,21 @@ public class Solution : MonoBehaviour
 
     public void NextStep()
     {
-        if (QueueSteps.Count > 0)
+        if (!_rubikRotations.IsRotationProcess())
         {
-            ChangeFacetRotate(QueueSteps.Dequeue());
+            if (QueueSteps.Count > 0)
+            {
+                ChangeFacetRotate(QueueSteps.Dequeue());
+            }
+            else
+            {
+                _solution = false;
+                Debug.Log(_stepsString);
+            }
         }
         else
         {
-            _solution = false;
+            Invoke("NextStep", 0.1f);
         }
     }
 
@@ -53,86 +64,68 @@ public class Solution : MonoBehaviour
     {
         if (nameRotate == "F")
         {
-            _rubikRotations.FacingRight(Vector3.right, 1, new Vector3(1, 0, 1));
+            _rubikRotations.FacingRight(Vector3.right, -1, new Vector3(1, 0, 1));
+            _stepsString += "F ";
         }
         else if (nameRotate == "F'")
         {
-            _rubikRotations.FacingRight(Vector3.right, -1, new Vector3(1, 0, 1));
-        }
-        else if (nameRotate == "F2")
-        {
             _rubikRotations.FacingRight(Vector3.right, 1, new Vector3(1, 0, 1));
-            _rubikRotations.FacingRight(Vector3.right, 1, new Vector3(1, 0, 1));
+            _stepsString += "F' ";
         }
 
         else if (nameRotate == "B")
         {
-            _rubikRotations.FacingRight(Vector3.right, -1, new Vector3(1, 0, -1));
+            _rubikRotations.FacingRight(Vector3.right, 1, new Vector3(1, 0, -1));
+            _stepsString += "B ";
         }
         else if (nameRotate == "B'")
         {
-            _rubikRotations.FacingRight(Vector3.right, 1, new Vector3(1, 0, -1));
-        }
-        else if (nameRotate == "B2")
-        {
             _rubikRotations.FacingRight(Vector3.right, -1, new Vector3(1, 0, -1));
-            _rubikRotations.FacingRight(Vector3.right, -1, new Vector3(1, 0, -1));
+            _stepsString += "B' ";
         }
 
         else if (nameRotate == "R")
         {
-            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(1, 0, 1));
+            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(1, 0, 1));
+            _stepsString += "R ";
         }
         else if (nameRotate == "R'")
         {
-            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(1, 0, 1));
-        }
-        else if (nameRotate == "R2")
-        {
             _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(1, 0, 1));
-            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(1, 0, 1));
+            _stepsString += "R' ";
         }
 
         else if (nameRotate == "L")
         {
-            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(-1, 0, 1));
+            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(-1, 0, 1));
+            _stepsString += "L ";
         }
         else if (nameRotate == "L'")
         {
-            _rubikRotations.FacingForward(Vector3.right, -1, new Vector3(-1, 0, 1));
-        }
-        else if (nameRotate == "L2")
-        {
             _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(-1, 0, 1));
-            _rubikRotations.FacingForward(Vector3.right, 1, new Vector3(-1, 0, 1));
+            _stepsString += "L' ";
         }
 
         else if (nameRotate == "U")
         {
             _rubikRotations.FacingForward(Vector3.up, 1, new Vector3(0, 1, 1));
+            _stepsString += "U ";
         }
         else if (nameRotate == "U'")
         {
             _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, 1, 1));
-        }
-        else if (nameRotate == "U2")
-        {
-            _rubikRotations.FacingForward(Vector3.up, 1, new Vector3(0, 1, 1));
-            _rubikRotations.FacingForward(Vector3.up, 1, new Vector3(0, 1, 1));
+            _stepsString += "U' ";
         }
 
         else if (nameRotate == "D")
         {
             _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, -1, 1));
+            _stepsString += "D ";
         }
         else if (nameRotate == "D'")
         {
             _rubikRotations.FacingForward(Vector3.up, 1, new Vector3(0, -1, 1));
-        }
-        else if (nameRotate == "D2")
-        {
-            _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, -1, 1));
-            _rubikRotations.FacingForward(Vector3.up, -1, new Vector3(0, -1, 1));
+            _stepsString += "D' ";
         }
         else 
         {

@@ -280,7 +280,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == -1) ? "F" : "F'");
+            _solution.AddStep((rezusRotate == 1) ? "F" : "F'");
         }
     }
     
@@ -288,7 +288,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == 1) ? "B" : "B'");
+            _solution.AddStep((rezusRotate == -1) ? "B" : "B'");
         }
     }
 
@@ -296,7 +296,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == -1) ? "R" : "R'");
+            _solution.AddStep((rezusRotate == 1) ? "R" : "R'");
         }
     }
     
@@ -304,7 +304,7 @@ public class FacetRotations : MonoBehaviour
     {
         if (!_solution.IsSolution())
         {
-            _solution.AddStep((rezusRotate == 1) ? "L" : "L'");
+            _solution.AddStep((rezusRotate == -1) ? "L" : "L'");
         }
     }
 

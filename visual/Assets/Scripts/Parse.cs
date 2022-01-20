@@ -66,15 +66,15 @@ public class Parse : MonoBehaviour
 
             process.OutputDataReceived += new DataReceivedEventHandler(DataReceived);
             process.ErrorDataReceived += new DataReceivedEventHandler(ErrorReceived);
-            UnityEngine.Debug.LogError("Hui1");
 
             process.Start();
 
-            UnityEngine.Debug.LogError("Hui2");
+            process.BeginOutputReadLine();
+            
             Invoke("test", 5.0f);
             // process.BeginOutputReadLine();
             // messageStream = process.StandardInput;
-            
+
             // Solution.StartSolution();
             // Invoke("StartSolution", 3.0f);
         }
@@ -84,10 +84,10 @@ public class Parse : MonoBehaviour
     {
 
             UnityEngine.Debug.LogError("Hui3");
-            process.BeginOutputReadLine();
             messageStream = process.StandardInput;
             
             Solution.StartSolution();
+            Invoke("StartSolution", 1.0f);
     }
 
     void StartSolution()
@@ -97,17 +97,19 @@ public class Parse : MonoBehaviour
 
     string ProcessArguments()
     {
-        string arguments = string.Empty;
+        string arguments = "";
 
         if (Solution.QueueSteps.Count > 0)
         {
-            arguments = "\"" + Solution.QueueSteps.Dequeue() + "\"";
+            arguments += "\"" + Solution.QueueSteps.Dequeue();
         }
         
         while (Solution.QueueSteps.Count > 0)
         {
-            arguments += " \"" + Solution.QueueSteps.Dequeue() + "\"";
+            arguments += " " + Solution.QueueSteps.Dequeue();
         }
+        
+        arguments += "\"";
 
         UnityEngine.Debug.Log("aaa: " + arguments);
         return arguments;
@@ -117,7 +119,21 @@ public class Parse : MonoBehaviour
     {
         if (eventArgs.Data != null)
         {
-            Solution.QueueSteps.Enqueue(eventArgs.Data.ToString());
+            string[] arguments = eventArgs.Data.ToString().Split(' ');
+            
+            UnityEngine.Debug.Log(arguments);
+            
+            foreach (string str in arguments)
+            {
+                if (str.Contains("2"))
+                {
+                    Solution.QueueSteps.Enqueue(str[0].ToString());
+                    Solution.QueueSteps.Enqueue(str[0].ToString());
+                }
+                else
+                    Solution.QueueSteps.Enqueue(str);
+            }
+            
             UnityEngine.Debug.Log(eventArgs.Data);
         }
     }

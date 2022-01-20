@@ -4,3 +4,4 @@
 *.swp
 rubik_solver/rubik-solver
 *build
+test_main.cpp
